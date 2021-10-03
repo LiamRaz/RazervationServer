@@ -23,4 +23,9 @@
     <ProjectReference Include="..\RazervationServerBL\RazervationServerBL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\" />
+    <Folder Include="Wwwroot\Images\" />
+  </ItemGroup>
+
 </Project>

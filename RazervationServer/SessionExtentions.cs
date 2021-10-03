@@ -15,7 +15,7 @@ namespace RazervationServer
         {
             JsonSerializerOptions options = new JsonSerializerOptions
             {
-                ReferenceHandler = ReferenceHandler.Preserve,
+                ReferenceHandler = ReferenceHandler.Preserve, 
                 PropertyNameCaseInsensitive = true
             };
 
