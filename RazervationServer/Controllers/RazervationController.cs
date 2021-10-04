@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RazervationServer.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("RazervationAPI")]
     [ApiController]
     public class RazervationController : ControllerBase
     {
