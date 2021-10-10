@@ -51,5 +51,21 @@ namespace RazervationServer.Controllers
         // test func
 
 
+        [Route("Test")]
+        [HttpGet]
+        public string Test()
+        {
+            string str = context.Test();
+
+            if (str != null)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return str;
+            }
+
+            Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+            return null;
+        }
+
     }
 }
