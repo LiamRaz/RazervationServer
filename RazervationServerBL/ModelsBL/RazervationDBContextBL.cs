@@ -15,7 +15,19 @@ namespace RazervationServerBL.Models
         public User Login(string email, string pswd)
         {
             User user = this.Users.Where(u => u.Email == email && u.UserPassword == pswd).FirstOrDefault();
+            if (user != null)
+            {
+                if (user.UserType == true)//client
+                {
+                    Client client = this.Clients.Where(c => c.UserName == user.UserName).Include(cl => cl.)
+                        .FirstOrDefault();
+                    MainUserDTO
+                }
+                else//business
+                {
 
+                }
+            }
             return user;
         }
 
