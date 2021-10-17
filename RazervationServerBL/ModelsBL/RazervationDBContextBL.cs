@@ -12,7 +12,7 @@ namespace RazervationServerBL.Models
     public partial class RazervationDBContext: DbContext
     {
 
-        public User Login(string email, string pswd)
+        public User Login(string email, string pswd)//hi
         {
             User user = this.Users.Where(u => u.Email == email && u.UserPassword == pswd).FirstOrDefault();
             
