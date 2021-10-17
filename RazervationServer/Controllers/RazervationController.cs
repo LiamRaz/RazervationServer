@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RazervationServerBL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace RazervationServer.Controllers
 {
@@ -28,6 +30,32 @@ namespace RazervationServer.Controllers
         public User Login([FromQuery] string email, [FromQuery] string pass)
         {
             User user = context.Login(email, pass);
+
+            if (user != null)
+            {
+                if (user.UserType == true)//client
+                {
+                    Client client = context.Clients.Where(c => c.UserName == user.UserName)
+                        .Include(cl => cl.Favorites)
+                        .Include(cl => cl.Histories)
+                        .Include(cl => cl.Comments)
+                        .Include(cl => cl.Reservations)
+                        .FirstOrDefault();
+
+                }
+                else//business
+                {
+                    Business business = context.Businesses.Where(b => b.UserName == user.UserName)
+                        .Include(b => b.BusinessDays)
+                        .Include(b => b.Comments)
+                        .Include(b => b.Favorites)
+                        .Include(b => b.Histories)
+                        .Include(b => b.Reservations)
+                        .Include(b => b.ServicesInBusinesses)
+                        .Include(b => b.SpecialNumberOfWorkers)
+                        .FirstOrDefault();
+                }
+            }
 
             //Check user name and password
             if (user != null)

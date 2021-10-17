@@ -7,6 +7,7 @@ namespace RazervationServerBL.Models
 {
     public partial class Favorite
     {
+        public int FavoriteId { get; set; }
         public int ClientId { get; set; }
         public int BusinessId { get; set; }
 

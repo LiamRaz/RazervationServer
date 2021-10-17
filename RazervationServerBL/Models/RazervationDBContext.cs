@@ -47,7 +47,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<Bservice>(entity =>
             {
                 entity.HasKey(e => e.ServiceId)
-                    .HasName("PK__BService__C51BB00A1214F8EE");
+                    .HasName("PK__BService__C51BB00ABDF97B37");
 
                 entity.ToTable("BServices");
             });
@@ -92,7 +92,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<BusinessDay>(entity =>
             {
                 entity.HasKey(e => e.DayId)
-                    .HasName("PK__Business__BF3DD8C5E4B73D63");
+                    .HasName("PK__Business__BF3DD8C536D18AED");
 
                 entity.ToTable("BusinessDay");
 
@@ -138,7 +138,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.HasKey(e => e.AutoCommentId)
-                    .HasName("PK__Comments__44A0477EE8539735");
+                    .HasName("PK__Comments__44A0477E9D26DFED");
 
                 entity.Property(e => e.CommentText).HasMaxLength(1);
 
@@ -157,16 +157,14 @@ namespace RazervationServerBL.Models
 
             modelBuilder.Entity<Favorite>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.HasOne(d => d.Business)
-                    .WithMany()
+                    .WithMany(p => p.Favorites)
                     .HasForeignKey(d => d.BusinessId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("favorites_Businessid_foreign");
 
                 entity.HasOne(d => d.Client)
-                    .WithMany()
+                    .WithMany(p => p.Favorites)
                     .HasForeignKey(d => d.ClientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("favorites_clientid_foreign");
@@ -174,18 +172,16 @@ namespace RazervationServerBL.Models
 
             modelBuilder.Entity<History>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("History");
 
                 entity.HasOne(d => d.Business)
-                    .WithMany()
+                    .WithMany(p => p.Histories)
                     .HasForeignKey(d => d.BusinessId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("history_businessid_foreign");
 
                 entity.HasOne(d => d.Client)
-                    .WithMany()
+                    .WithMany(p => p.Histories)
                     .HasForeignKey(d => d.ClientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("history_clientid_foreign");
@@ -233,7 +229,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<ReserveStatus>(entity =>
             {
                 entity.HasKey(e => e.StatusId)
-                    .HasName("PK__ReserveS__C8EE20639A732EDA");
+                    .HasName("PK__ReserveS__C8EE2063171138A2");
 
                 entity.ToTable("ReserveStatus");
 
@@ -244,18 +240,16 @@ namespace RazervationServerBL.Models
 
             modelBuilder.Entity<ServicesInBusiness>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("ServicesInBusiness");
 
                 entity.HasOne(d => d.Business)
-                    .WithMany()
+                    .WithMany(p => p.ServicesInBusinesses)
                     .HasForeignKey(d => d.BusinessId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("servicesinbusiness_businessid_foreign");
 
                 entity.HasOne(d => d.Service)
-                    .WithMany()
+                    .WithMany(p => p.ServicesInBusinesses)
                     .HasForeignKey(d => d.ServiceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("servicesinbusiness_serviceid_foreign");
@@ -264,7 +258,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<SpecialNumberOfWorker>(entity =>
             {
                 entity.HasKey(e => e.SpecialDate)
-                    .HasName("PK__SpecialN__754CBCC4EB5C1F1B");
+                    .HasName("PK__SpecialN__754CBCC459F58602");
 
                 entity.Property(e => e.SpecialDate).HasColumnType("date");
 
@@ -278,12 +272,12 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.UserName)
-                    .HasName("PK__Users__C9F28457B899A707");
+                    .HasName("PK__Users__C9F28457F32D7C7C");
 
-                entity.HasIndex(e => e.PhoneNumber, "UQ__Users__85FB4E385F62F562")
+                entity.HasIndex(e => e.PhoneNumber, "UQ__Users__85FB4E38E278545D")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__Users__A9D105347E06112C")
+                entity.HasIndex(e => e.Email, "UQ__Users__A9D105349669B501")
                     .IsUnique();
 
                 entity.Property(e => e.UserName).HasMaxLength(255);

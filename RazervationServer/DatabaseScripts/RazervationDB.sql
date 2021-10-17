@@ -62,6 +62,7 @@ CREATE TABLE BServices(
 
 
 CREATE TABLE ServicesInBusiness(
+    Id INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
     BusinessId INT NOT NULL,
     ServiceId INT NOT NULL
 );
@@ -69,6 +70,7 @@ CREATE TABLE ServicesInBusiness(
 
 
 CREATE TABLE Favorites(
+    FavoriteId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
     ClientId INT NOT NULL,
     BusinessId INT NOT NULL
 );
@@ -124,6 +126,7 @@ CREATE TABLE BusinessDay(
 
 
 CREATE TABLE History(
+    HistoryId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
     ClientId INT NOT NULL,
     BusinessId INT NOT NULL
 );

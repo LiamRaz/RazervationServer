@@ -11,7 +11,10 @@ namespace RazervationServerBL.Models
         {
             BusinessDays = new HashSet<BusinessDay>();
             Comments = new HashSet<Comment>();
+            Favorites = new HashSet<Favorite>();
+            Histories = new HashSet<History>();
             Reservations = new HashSet<Reservation>();
+            ServicesInBusinesses = new HashSet<ServicesInBusiness>();
             SpecialNumberOfWorkers = new HashSet<SpecialNumberOfWorker>();
         }
 
@@ -30,7 +33,10 @@ namespace RazervationServerBL.Models
         public virtual User UserNameNavigation { get; set; }
         public virtual ICollection<BusinessDay> BusinessDays { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Favorite> Favorites { get; set; }
+        public virtual ICollection<History> Histories { get; set; }
         public virtual ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<ServicesInBusiness> ServicesInBusinesses { get; set; }
         public virtual ICollection<SpecialNumberOfWorker> SpecialNumberOfWorkers { get; set; }
     }
 }
