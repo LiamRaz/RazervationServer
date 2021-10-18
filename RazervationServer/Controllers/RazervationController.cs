@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RazervationServer.DTO;
 
 
 namespace RazervationServer.Controllers
@@ -27,9 +28,10 @@ namespace RazervationServer.Controllers
 
         [Route("Login")]
         [HttpGet]
-        public User Login([FromQuery] string email, [FromQuery] string pass)
+        public MainUserDTO Login([FromQuery] string email, [FromQuery] string pass)
         {
             User user = context.Login(email, pass);
+            MainUserDTO mUser = null;
 
             if (user != null)
             {
@@ -41,6 +43,7 @@ namespace RazervationServer.Controllers
                         .Include(cl => cl.Comments)
                         .Include(cl => cl.Reservations)
                         .FirstOrDefault();
+                    mUser = new MainUserDTO { Business = null, Client = client, User = user };
 
                 }
                 else//business
@@ -54,18 +57,20 @@ namespace RazervationServer.Controllers
                         .Include(b => b.ServicesInBusinesses)
                         .Include(b => b.SpecialNumberOfWorkers)
                         .FirstOrDefault();
+
+                    mUser = new MainUserDTO { Business = business, Client = null, User = user };
                 }
             }
 
             //Check user name and password
-            if (user != null)
+            if (mUser != null)
             {
-                HttpContext.Session.SetObject("theUser", user);
+                HttpContext.Session.SetObject("theUser", mUser);
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 
                 //Important! Due to the Lazy Loading, the user will be returned with all of its contects!!
-                return user;
+                return mUser;
             }
             else
             {
