@@ -81,6 +81,55 @@ namespace RazervationServer.Controllers
         }
 
 
+
+        // Sign Up for Client!!!
+
+        [Route("ClientSignUp")]
+        [HttpPost]
+
+        public bool ClientSignUp([FromBody] MainUserDTO mUser)
+        {
+            bool isSuccess = context.ClientSignUp(mUser.Client, mUser.User);
+
+            if(isSuccess)//the sign up worked
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the sign up failed
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
+
+
+
+        // a function that checks that the inserted email and user name are unique
+
+
+        [Route("CheckUniqueness")]
+        [HttpGet]
+
+        public bool CheckUniqueness([FromQuery] string email, [FromQuery] string userName)
+        {
+            bool isUnique = this.context.CheckUniqueness(email, userName);
+            
+            if (isUnique)//the email and the user name are unique
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isUnique;
+            }
+            else//one or both are not unique
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isUnique;
+            }
+        }
+
+
+
+
         // test func
 
 

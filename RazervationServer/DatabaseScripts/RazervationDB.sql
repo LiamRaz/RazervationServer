@@ -11,6 +11,7 @@ GO
 
 CREATE TABLE Clients(
     ClientId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
+    --UserId INT NOT NULL,
     FirstName nvarchar(255) NOT NULL,
     LastName nvarchar(255) NOT NULL,
     UserName nvarchar(255) NOT NULL,
@@ -21,6 +22,7 @@ CREATE TABLE Clients(
 
 CREATE TABLE Businesses(
     BusinessId INT IDENTITY(10000,1) PRIMARY KEY NOT NULL,
+    --UserId INT NOT NULL,
     BusinessName nvarchar(255) NOT NULL,
     BusinessAddress nvarchar(255) NOT NULL,
     Bio nvarchar,
@@ -104,6 +106,7 @@ CREATE TABLE SpecialNumberOfWorkers(
 
 
 CREATE TABLE Users(
+    --UserId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
     UserName nvarchar(255) PRIMARY KEY NOT NULL,
     UserPassword nvarchar(255) NOT NULL,
     UserType BIT NOT NULL,
@@ -177,9 +180,9 @@ ALTER TABLE
 
 
 ALTER TABLE
-    Clients ADD CONSTRAINT clients_username_foreign FOREIGN KEY(UserName) REFERENCES Users(UserName);
+    Clients ADD CONSTRAINT clients_userid_foreign FOREIGN KEY(UserName) REFERENCES Users(UserName);
 ALTER TABLE
-    Businesses ADD CONSTRAINT businesses_username_foreign FOREIGN KEY(UserName) REFERENCES Users(UserName);
+    Businesses ADD CONSTRAINT businesses_userid_foreign FOREIGN KEY(UserName) REFERENCES Users(UserName);
 
 
 
