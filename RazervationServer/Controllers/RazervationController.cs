@@ -103,7 +103,26 @@ namespace RazervationServer.Controllers
             }
         }
 
+        // Sign Up for Business!!!
 
+        [Route("BusinessSignUp")]
+        [HttpPost]
+
+        public bool BusinessSignUp([FromBody] MainUserDTO mUser)
+        {
+            bool isSuccess = context.BusinessSignUp(mUser.Business, mUser.User);
+
+            if (isSuccess)//the sign up worked
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the sign up failed
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
 
         // a function that checks that the inserted email and user name are unique
 

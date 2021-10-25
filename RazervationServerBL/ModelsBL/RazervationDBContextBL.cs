@@ -26,19 +26,26 @@ namespace RazervationServerBL.Models
         public bool ClientSignUp(Client c, User u)
         {
             u.UserType = true;//the user is a client
-            
-            if(true)//all details had been filled - is needed?
-            {
-                this.Users.Add(u);
-                this.Clients.Add(c);
-                this.SaveChanges();
-                return true;
-            }
-            else// one or more details are missing
-            {
-                return false;
-            }
-            
+
+            this.Users.Add(u);
+            this.Clients.Add(c);
+            this.SaveChanges();
+            return true;
+
+        }
+
+
+        // Sign Up for Business
+
+        public bool BusinessSignUp(Business b, User u)
+        {
+            u.UserType = false;//the user is a client
+
+            this.Users.Add(u);
+            this.Businesses.Add(b);
+            this.SaveChanges();
+            return true;
+
         }
 
 
