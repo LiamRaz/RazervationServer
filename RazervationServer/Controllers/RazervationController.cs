@@ -149,6 +149,34 @@ namespace RazervationServer.Controllers
 
 
 
+        // a function that returns a list of all the categories
+
+
+        [Route("GetAllCategories")]
+        [HttpGet]
+        public List<Category> GetAllCategories()
+        {
+
+            List<Category> categories = this.context.Categories.ToList<Category>();
+            
+
+            //Check user name and password
+            if (categories != null)
+            {
+
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+
+                return categories;
+            }
+            else
+            {
+
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
+            }
+        }
+
+
         // test func
 
 
