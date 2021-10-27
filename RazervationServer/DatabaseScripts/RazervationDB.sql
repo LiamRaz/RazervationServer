@@ -57,17 +57,18 @@ CREATE TABLE ReserveStatus(
 
 CREATE TABLE BServices(
     ServiceId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
-    ServiceName INT NOT NULL,
+    ServiceName nvarchar(255) NOT NULL,
     DurationMin INT NOT NULL,
-    Price INT NOT NULL
+    Price INT NOT NULL,
+    BusinessId INT NOT NULL
 );
 
 
-CREATE TABLE ServicesInBusiness(
-    Id INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
-    BusinessId INT NOT NULL,
-    ServiceId INT NOT NULL
-);
+--CREATE TABLE ServicesInBusiness(
+--    Id INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
+--    BusinessId INT NOT NULL,
+--    ServiceId INT NOT NULL
+--);
 
 
 
@@ -170,10 +171,14 @@ ALTER TABLE
     Reservation ADD CONSTRAINT reservation_StatusId_foreign FOREIGN KEY(StatusId) REFERENCES ReserveStatus(StatusId);
 
 
+
 ALTER TABLE
-    ServicesInBusiness ADD CONSTRAINT servicesinbusiness_businessid_foreign FOREIGN KEY(BusinessId) REFERENCES Businesses(BusinessId);
-ALTER TABLE
-    ServicesInBusiness ADD CONSTRAINT servicesinbusiness_serviceid_foreign FOREIGN KEY(ServiceId) REFERENCES BServices(ServiceId);
+    BServices ADD CONSTRAINT bservices_Businessid_foreign FOREIGN KEY(BusinessId) REFERENCES Businesses(BusinessId);
+
+--ALTER TABLE
+--    ServicesInBusiness ADD CONSTRAINT servicesinbusiness_businessid_foreign FOREIGN KEY(BusinessId) REFERENCES Businesses(BusinessId);
+--ALTER TABLE
+--    ServicesInBusiness ADD CONSTRAINT servicesinbusiness_serviceid_foreign FOREIGN KEY(ServiceId) REFERENCES BServices(ServiceId);
 
 
 ALTER TABLE

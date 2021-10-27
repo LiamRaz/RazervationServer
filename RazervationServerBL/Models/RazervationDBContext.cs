@@ -27,7 +27,6 @@ namespace RazervationServerBL.Models
         public virtual DbSet<History> Histories { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
         public virtual DbSet<ReserveStatus> ReserveStatuses { get; set; }
-        public virtual DbSet<ServicesInBusiness> ServicesInBusinesses { get; set; }
         public virtual DbSet<SpecialNumberOfWorker> SpecialNumberOfWorkers { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
@@ -42,14 +41,24 @@ namespace RazervationServerBL.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Hebrew_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<Bservice>(entity =>
             {
                 entity.HasKey(e => e.ServiceId)
-                    .HasName("PK__BService__C51BB00AE0E2FA2D");
+                    .HasName("PK__BService__C51BB00ADC565E10");
 
                 entity.ToTable("BServices");
+
+                entity.Property(e => e.ServiceName)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.HasOne(d => d.Business)
+                    .WithMany(p => p.Bservices)
+                    .HasForeignKey(d => d.BusinessId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("bservices_Businessid_foreign");
             });
 
             modelBuilder.Entity<Business>(entity =>
@@ -90,7 +99,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<BusinessDay>(entity =>
             {
                 entity.HasKey(e => e.DayId)
-                    .HasName("PK__Business__BF3DD8C5989439A9");
+                    .HasName("PK__Business__BF3DD8C5221A972F");
 
                 entity.ToTable("BusinessDay");
 
@@ -140,7 +149,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.HasKey(e => e.AutoCommentId)
-                    .HasName("PK__Comments__44A0477E16ABCD40");
+                    .HasName("PK__Comments__44A0477EEBDE48E2");
 
                 entity.Property(e => e.CommentText).HasMaxLength(1);
 
@@ -235,7 +244,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<ReserveStatus>(entity =>
             {
                 entity.HasKey(e => e.StatusId)
-                    .HasName("PK__ReserveS__C8EE206352649345");
+                    .HasName("PK__ReserveS__C8EE20635C41FA38");
 
                 entity.ToTable("ReserveStatus");
 
@@ -244,27 +253,10 @@ namespace RazervationServerBL.Models
                     .HasMaxLength(255);
             });
 
-            modelBuilder.Entity<ServicesInBusiness>(entity =>
-            {
-                entity.ToTable("ServicesInBusiness");
-
-                entity.HasOne(d => d.Business)
-                    .WithMany(p => p.ServicesInBusinesses)
-                    .HasForeignKey(d => d.BusinessId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("servicesinbusiness_businessid_foreign");
-
-                entity.HasOne(d => d.Service)
-                    .WithMany(p => p.ServicesInBusinesses)
-                    .HasForeignKey(d => d.ServiceId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("servicesinbusiness_serviceid_foreign");
-            });
-
             modelBuilder.Entity<SpecialNumberOfWorker>(entity =>
             {
                 entity.HasKey(e => e.SpecialDate)
-                    .HasName("PK__SpecialN__754CBCC4EF8BCD00");
+                    .HasName("PK__SpecialN__754CBCC4F1BC49D3");
 
                 entity.Property(e => e.SpecialDate).HasColumnType("datetime");
 
@@ -278,12 +270,12 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.UserName)
-                    .HasName("PK__Users__C9F2845752E2F352");
+                    .HasName("PK__Users__C9F28457862DC1BD");
 
-                entity.HasIndex(e => e.PhoneNumber, "UQ__Users__85FB4E387B851880")
+                entity.HasIndex(e => e.PhoneNumber, "UQ__Users__85FB4E38C187E070")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__Users__A9D10534553229FA")
+                entity.HasIndex(e => e.Email, "UQ__Users__A9D105344D1CF777")
                     .IsUnique();
 
                 entity.Property(e => e.UserName).HasMaxLength(255);

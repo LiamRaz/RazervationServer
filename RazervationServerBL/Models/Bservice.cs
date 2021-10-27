@@ -10,15 +10,15 @@ namespace RazervationServerBL.Models
         public Bservice()
         {
             Reservations = new HashSet<Reservation>();
-            ServicesInBusinesses = new HashSet<ServicesInBusiness>();
         }
 
         public int ServiceId { get; set; }
-        public int ServiceName { get; set; }
+        public string ServiceName { get; set; }
         public int DurationMin { get; set; }
         public int Price { get; set; }
+        public int BusinessId { get; set; }
 
+        public virtual Business Business { get; set; }
         public virtual ICollection<Reservation> Reservations { get; set; }
-        public virtual ICollection<ServicesInBusiness> ServicesInBusinesses { get; set; }
     }
 }
