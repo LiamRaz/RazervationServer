@@ -31,7 +31,7 @@ CREATE TABLE Businesses(
     UserName nvarchar(255) NOT NULL,
     InstagramUrl nvarchar(255),
     FacebookUrl nvarchar(255),
-    BusinessImage nvarchar(255)
+    --BusinessImage nvarchar(255)
 );
 
 
@@ -98,7 +98,7 @@ CREATE TABLE Categories(
 
 
 CREATE TABLE SpecialNumberOfWorkers(
-    SpecialDate DATE PRIMARY KEY NOT NULL,
+    SpecialDate DATETIME PRIMARY KEY NOT NULL,
     NumWorkers INT NOT NULL,
     BusinessId INT NOT NULL
 );
@@ -119,8 +119,8 @@ CREATE TABLE Users(
 CREATE TABLE BusinessDay(
     BusinessId INT NOT NULL,
     DayNum INT NOT NULL,
-    StartTime TIME NOT NULL,
-    EndTime TIME NOT NULL,
+    StartTime DATETIME NOT NULL,
+    EndTime DATETIME NOT NULL,
     NumberOfWorkers INT NOT NULL,
     DayId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL
 );
@@ -131,7 +131,8 @@ CREATE TABLE BusinessDay(
 CREATE TABLE History(
     HistoryId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
     ClientId INT NOT NULL,
-    BusinessId INT NOT NULL
+    BusinessId INT NOT NULL,
+    HDate DATETIME NOT NULL
 );
 
 

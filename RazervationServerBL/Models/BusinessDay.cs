@@ -14,8 +14,8 @@ namespace RazervationServerBL.Models
 
         public int BusinessId { get; set; }
         public int DayNum { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public int NumberOfWorkers { get; set; }
         public int DayId { get; set; }
 

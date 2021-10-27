@@ -10,6 +10,7 @@ namespace RazervationServerBL.Models
         public int HistoryId { get; set; }
         public int ClientId { get; set; }
         public int BusinessId { get; set; }
+        public DateTime Hdate { get; set; }
 
         public virtual Business Business { get; set; }
         public virtual Client Client { get; set; }

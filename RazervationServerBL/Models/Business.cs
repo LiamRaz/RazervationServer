@@ -27,7 +27,6 @@ namespace RazervationServerBL.Models
         public string UserName { get; set; }
         public string InstagramUrl { get; set; }
         public string FacebookUrl { get; set; }
-        public string BusinessImage { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual User UserNameNavigation { get; set; }

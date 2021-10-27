@@ -47,7 +47,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<Bservice>(entity =>
             {
                 entity.HasKey(e => e.ServiceId)
-                    .HasName("PK__BService__C51BB00ABDF97B37");
+                    .HasName("PK__BService__C51BB00AE0E2FA2D");
 
                 entity.ToTable("BServices");
             });
@@ -59,8 +59,6 @@ namespace RazervationServerBL.Models
                 entity.Property(e => e.BusinessAddress)
                     .IsRequired()
                     .HasMaxLength(255);
-
-                entity.Property(e => e.BusinessImage).HasMaxLength(255);
 
                 entity.Property(e => e.BusinessName)
                     .IsRequired()
@@ -86,15 +84,19 @@ namespace RazervationServerBL.Models
                     .WithMany(p => p.Businesses)
                     .HasForeignKey(d => d.UserName)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("businesses_username_foreign");
+                    .HasConstraintName("businesses_userid_foreign");
             });
 
             modelBuilder.Entity<BusinessDay>(entity =>
             {
                 entity.HasKey(e => e.DayId)
-                    .HasName("PK__Business__BF3DD8C536D18AED");
+                    .HasName("PK__Business__BF3DD8C5989439A9");
 
                 entity.ToTable("BusinessDay");
+
+                entity.Property(e => e.EndTime).HasColumnType("datetime");
+
+                entity.Property(e => e.StartTime).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Business)
                     .WithMany(p => p.BusinessDays)
@@ -132,13 +134,13 @@ namespace RazervationServerBL.Models
                     .WithMany(p => p.Clients)
                     .HasForeignKey(d => d.UserName)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("clients_username_foreign");
+                    .HasConstraintName("clients_userid_foreign");
             });
 
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.HasKey(e => e.AutoCommentId)
-                    .HasName("PK__Comments__44A0477E9D26DFED");
+                    .HasName("PK__Comments__44A0477E16ABCD40");
 
                 entity.Property(e => e.CommentText).HasMaxLength(1);
 
@@ -173,6 +175,10 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<History>(entity =>
             {
                 entity.ToTable("History");
+
+                entity.Property(e => e.Hdate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("HDate");
 
                 entity.HasOne(d => d.Business)
                     .WithMany(p => p.Histories)
@@ -229,7 +235,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<ReserveStatus>(entity =>
             {
                 entity.HasKey(e => e.StatusId)
-                    .HasName("PK__ReserveS__C8EE2063171138A2");
+                    .HasName("PK__ReserveS__C8EE206352649345");
 
                 entity.ToTable("ReserveStatus");
 
@@ -258,9 +264,9 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<SpecialNumberOfWorker>(entity =>
             {
                 entity.HasKey(e => e.SpecialDate)
-                    .HasName("PK__SpecialN__754CBCC459F58602");
+                    .HasName("PK__SpecialN__754CBCC4EF8BCD00");
 
-                entity.Property(e => e.SpecialDate).HasColumnType("date");
+                entity.Property(e => e.SpecialDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Business)
                     .WithMany(p => p.SpecialNumberOfWorkers)
@@ -272,12 +278,12 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.UserName)
-                    .HasName("PK__Users__C9F28457F32D7C7C");
+                    .HasName("PK__Users__C9F2845752E2F352");
 
-                entity.HasIndex(e => e.PhoneNumber, "UQ__Users__85FB4E38E278545D")
+                entity.HasIndex(e => e.PhoneNumber, "UQ__Users__85FB4E387B851880")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__Users__A9D105349669B501")
+                entity.HasIndex(e => e.Email, "UQ__Users__A9D10534553229FA")
                     .IsUnique();
 
                 entity.Property(e => e.UserName).HasMaxLength(255);
