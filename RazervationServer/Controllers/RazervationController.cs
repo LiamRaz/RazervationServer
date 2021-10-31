@@ -54,7 +54,6 @@ namespace RazervationServer.Controllers
                         .Include(b => b.Favorites)
                         .Include(b => b.Histories)
                         .Include(b => b.Reservations)
-                        .Include(b => b.ServicesInBusinesses)
                         .Include(b => b.SpecialNumberOfWorkers)
                         .FirstOrDefault();
 
