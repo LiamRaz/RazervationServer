@@ -120,8 +120,8 @@ CREATE TABLE Users(
 CREATE TABLE BusinessDay(
     BusinessId INT NOT NULL,
     DayNum INT NOT NULL,
-    StartTime DATETIME NOT NULL,
-    EndTime DATETIME NOT NULL,
+    StartTime TIME NOT NULL,
+    EndTime TIME NOT NULL,
     NumberOfWorkers INT NOT NULL,
     DayId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL
 );
