@@ -51,9 +51,9 @@ namespace RazervationServerBL.Models
 
         // a function that checks that the inserted email and user name are unique
 
-        public bool CheckUniqueness(string email, string userName)
+        public bool CheckUniqueness(string email, string userName, string phoneNum)
         {
-            User user = this.Users.Where(u => u.Email == email || u.UserName == userName).FirstOrDefault();
+            User user = this.Users.Where(u => u.Email == email || u.UserName == userName || u.PhoneNumber == phoneNum).FirstOrDefault();
             
             if(user == null)//the email and the user name are unique
             {

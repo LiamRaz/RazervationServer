@@ -129,9 +129,9 @@ namespace RazervationServer.Controllers
         [Route("CheckUniqueness")]
         [HttpGet]
 
-        public bool CheckUniqueness([FromQuery] string email, [FromQuery] string userName)
+        public bool CheckUniqueness([FromQuery] string email, [FromQuery] string userName, [FromQuery] string phoneNum)
         {
-            bool isUnique = this.context.CheckUniqueness(email, userName);
+            bool isUnique = this.context.CheckUniqueness(email, userName, phoneNum);
             
             if (isUnique)//the email and the user name are unique
             {

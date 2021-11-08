@@ -117,7 +117,7 @@ CREATE TABLE Users(
 
 
 
-CREATE TABLE BusinessDay(
+CREATE TABLE BusinessDays(
     BusinessId INT NOT NULL,
     DayNum INT NOT NULL,
     StartTime TIME NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE BusinessDay(
 
 
 
-CREATE TABLE History(
+CREATE TABLE Histories(
     HistoryId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
     ClientId INT NOT NULL,
     BusinessId INT NOT NULL,
@@ -156,7 +156,7 @@ ALTER TABLE
 
 
 ALTER TABLE
-    BusinessDay ADD CONSTRAINT businessday_businessid_foreign FOREIGN KEY(BusinessId) REFERENCES Businesses(BusinessId);
+    BusinessDays ADD CONSTRAINT businessdays_businessid_foreign FOREIGN KEY(BusinessId) REFERENCES Businesses(BusinessId);
 
 
 ALTER TABLE
@@ -164,7 +164,7 @@ ALTER TABLE
 ALTER TABLE
     Reservation ADD CONSTRAINT reservation_clientid_foreign FOREIGN KEY(ClientId) REFERENCES Clients(ClientId);
 ALTER TABLE
-    Reservation ADD CONSTRAINT reservation_dayid_foreign FOREIGN KEY(DayId) REFERENCES BusinessDay(DayId);
+    Reservation ADD CONSTRAINT reservation_dayid_foreign FOREIGN KEY(DayId) REFERENCES BusinessDays(DayId);
 ALTER TABLE
     Reservation ADD CONSTRAINT reservation_BServicesid_foreign FOREIGN KEY(ServiceId) REFERENCES BServices(ServiceId);
 ALTER TABLE
@@ -194,6 +194,6 @@ ALTER TABLE
 
 
 ALTER TABLE
-    History ADD CONSTRAINT history_clientid_foreign FOREIGN KEY(ClientId) REFERENCES Clients(ClientId);
+    Histories ADD CONSTRAINT history_clientid_foreign FOREIGN KEY(ClientId) REFERENCES Clients(ClientId);
 ALTER TABLE
-    History ADD CONSTRAINT history_businessid_foreign FOREIGN KEY(BusinessId) REFERENCES Businesses(BusinessId);
+    Histories ADD CONSTRAINT history_businessid_foreign FOREIGN KEY(BusinessId) REFERENCES Businesses(BusinessId);
