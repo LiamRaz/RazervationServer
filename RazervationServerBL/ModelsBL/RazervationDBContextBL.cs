@@ -13,9 +13,9 @@ namespace RazervationServerBL.Models
     {
 
         // Login!!
-        public User Login(string email, string pswd)//hi
+        public User Login(string emailOrUName, string pswd)//hi
         {
-            User user = this.Users.Where(u => u.Email == email && u.UserPassword == pswd).FirstOrDefault();
+            User user = this.Users.Where(u => (u.Email == emailOrUName || u.UserName == emailOrUName )&& u.UserPassword == pswd).FirstOrDefault();
          
             return user;
         }

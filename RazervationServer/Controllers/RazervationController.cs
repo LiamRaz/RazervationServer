@@ -28,9 +28,9 @@ namespace RazervationServer.Controllers
 
         [Route("Login")]
         [HttpGet]
-        public MainUserDTO Login([FromQuery] string email, [FromQuery] string pass)
+        public MainUserDTO Login([FromQuery] string emailOrUName, [FromQuery] string pass)
         {
-            User user = context.Login(email, pass);
+            User user = context.Login(emailOrUName, pass);
             MainUserDTO mUser = null;
 
             if (user != null)
