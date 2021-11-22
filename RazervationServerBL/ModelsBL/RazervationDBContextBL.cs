@@ -67,6 +67,37 @@ namespace RazervationServerBL.Models
 
 
 
+        // Change Reservation's Status!!!
+
+        public bool ChangeReservationStatus(Reservation reservation, int statusId)
+        {
+            Reservation chosenReservation = this.Reservations.Where(r => r.ReservationId == reservation.ReservationId).FirstOrDefault();
+            if(chosenReservation == null)
+            {
+                return false;
+            }
+            else 
+            {
+                TimeSpan timeDifference = chosenReservation.StartDateTime - DateTime.Now;
+                if(timeDifference <= TimeSpan.FromHours(2))
+                {
+                    return false;
+                }
+
+
+                chosenReservation.Status = this.ReserveStatuses.Where(s => s.StatusId == statusId).FirstOrDefault();
+                if(chosenReservation.Status == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    this.SaveChanges();
+                    return true;
+                }
+            }
+        }
+
         public string Test()
         {
             return "test";

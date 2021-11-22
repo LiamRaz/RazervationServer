@@ -75,7 +75,8 @@ CREATE TABLE BServices(
 CREATE TABLE Favorites(
     FavoriteId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
     ClientId INT NOT NULL,
-    BusinessId INT NOT NULL
+    BusinessId INT NOT NULL,
+    IsActive BIT NOT NULL
 );
 
 
@@ -91,8 +92,10 @@ CREATE TABLE Comments(
 
 
 CREATE TABLE Categories(
-    CategoryId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
-    CategoryName nvarchar(255) NOT NULL
+    CategoryId INT IDENTITY(10,1) PRIMARY KEY NOT NULL,
+    CategoryName nvarchar(255) NOT NULL,
+    CategoryImageUrl nvarchar(255) NOT NULL,
+    CategoryIconUrl nvarchar(255) NOT NULL,
 );
 
 
@@ -133,7 +136,8 @@ CREATE TABLE Histories(
     HistoryId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
     ClientId INT NOT NULL,
     BusinessId INT NOT NULL,
-    HDate DATETIME NOT NULL
+    HDate DATETIME NOT NULL,
+    IsActive BIT NOT NULL
 );
 
 

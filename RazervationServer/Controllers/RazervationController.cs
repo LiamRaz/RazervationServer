@@ -123,7 +123,7 @@ namespace RazervationServer.Controllers
             }
         }
 
-        // a function that checks that the inserted email and user name are unique
+        // a function that checks that the inserted email, phone number and user name are unique
 
 
         [Route("CheckUniqueness")]
@@ -174,6 +174,29 @@ namespace RazervationServer.Controllers
                 return null;
             }
         }
+
+
+        // a function that changes the reservation status
+
+        [Route("ChangeReservationStatus")]
+        [HttpPost]
+        public bool ChangeReservationStatus([FromBody] Reservation reservation, [FromQuery] int statusId)
+        {
+            bool isSuccess = context.ChangeReservationStatus(reservation, statusId);
+
+            if (isSuccess)//the reservation has been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the reservation has not been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
+
+
 
 
         // test func
