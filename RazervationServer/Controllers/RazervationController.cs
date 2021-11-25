@@ -146,8 +146,6 @@ namespace RazervationServer.Controllers
         }
 
 
-
-
         // a function that returns a list of all the categories
 
 
@@ -159,7 +157,7 @@ namespace RazervationServer.Controllers
             List<Category> categories = this.context.Categories.ToList<Category>();
             
 
-            //Check user name and password
+            //Check if there are any categories
             if (categories != null)
             {
 
@@ -194,6 +192,32 @@ namespace RazervationServer.Controllers
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
                 return isSuccess;
             }
+        }
+
+
+        // The Search Function
+
+        [Route("Search")]
+        [HttpGet]
+        public List<Business> Search([FromQuery] string searchInput)
+        {
+
+            List<Business> businesses = this.context.Search(searchInput);     
+            Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            return businesses;
+
+        }
+
+
+        // The Search By Category Function
+
+        [Route("SearchByCategory")]
+        [HttpGet]
+        public List<Business> SearchByCategory([FromQuery] string strCategoryId)
+        {
+            List<Business> businesses = this.context.SearchByCategory(strCategoryId);
+            Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            return businesses;
         }
 
 

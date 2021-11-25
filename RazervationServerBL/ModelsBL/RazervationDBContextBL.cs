@@ -98,6 +98,28 @@ namespace RazervationServerBL.Models
             }
         }
 
+
+        // The Search Function
+
+        public List<Business> Search(string searchInput)
+        {
+            List<Business> businesses = this.Businesses.Where(b => b.BusinessName.Contains(searchInput) || b.BusinessAddress.Contains(searchInput)
+                                        || b.Category.CategoryName.Contains(searchInput) || b.Bio.Contains(searchInput)).ToList<Business>();
+            return businesses;
+            
+        }
+
+
+        // The Search By Category Function
+
+        public List<Business> SearchByCategory(string strCategoryId)
+        {
+            int categoryId = int.Parse(strCategoryId);
+            List<Business> businesses = this.Businesses.Where(b => b.CategoryId == categoryId).ToList<Business>();
+            return businesses;
+
+        }
+
         public string Test()
         {
             return "test";
