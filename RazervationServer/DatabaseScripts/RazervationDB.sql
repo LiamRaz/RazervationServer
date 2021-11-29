@@ -201,3 +201,241 @@ ALTER TABLE
     Histories ADD CONSTRAINT history_clientid_foreign FOREIGN KEY(ClientId) REFERENCES Clients(ClientId);
 ALTER TABLE
     Histories ADD CONSTRAINT history_businessid_foreign FOREIGN KEY(BusinessId) REFERENCES Businesses(BusinessId);
+
+
+
+
+
+   USE [RazervationDB]
+GO
+
+INSERT INTO [dbo].[Categories]
+           ([CategoryName]
+           ,[CategoryImageUrl]
+           ,[CategoryIconUrl])
+     VALUES
+           ('BarberShop'
+           ,'BarbershopCategoryImage.png'
+           ,'BarbershopCategoryIcon.png')
+GO
+
+INSERT INTO [dbo].[Categories]
+           ([CategoryName]
+           ,[CategoryImageUrl]
+           ,[CategoryIconUrl])
+     VALUES
+           ('Teacher'
+           ,'TeacherCategoryImage.png'
+           ,'TeacherCategoryIcon.png')
+GO
+
+INSERT INTO [dbo].[Categories]
+           ([CategoryName]
+           ,[CategoryImageUrl]
+           ,[CategoryIconUrl])
+     VALUES
+           ('Doctor'
+           ,'DoctorCategoryImage.png'
+           ,'DoctorCategoryIcon.png')
+GO
+
+
+
+INSERT INTO [Users]
+           ([UserName]
+           ,[UserPassword]
+           ,[UserType]
+           ,[Email]
+           ,[PhoneNumber])
+     VALUES
+           ('Razchik'
+           ,'123'
+           ,1
+           ,'liamraz@gmail.com'
+           ,'0527794488')
+GO
+
+INSERT INTO [Clients]
+           ([FirstName]
+           ,[LastName]
+           ,[UserName]
+           ,[Gender])
+     VALUES
+           ('Liam'
+           ,'Raz'
+           ,'Razchik'
+           ,'Male')
+GO
+
+
+
+INSERT INTO [Users]
+           ([UserName]
+           ,[UserPassword]
+           ,[UserType]
+           ,[Email]
+           ,[PhoneNumber])
+     VALUES
+           ('DcBarber'
+           ,'123'
+           ,0
+           ,'dcbarber@gmail.com'
+           ,'0544359010')
+GO
+
+INSERT INTO [Users]
+           ([UserName]
+           ,[UserPassword]
+           ,[UserType]
+           ,[Email]
+           ,[PhoneNumber])
+     VALUES
+           ('Mazka18'
+           ,'123'
+           ,0
+           ,'Mazka18@gmail.com'
+           ,'0501234567')
+GO
+
+INSERT INTO [Users]
+           ([UserName]
+           ,[UserPassword]
+           ,[UserType]
+           ,[Email]
+           ,[PhoneNumber])
+     VALUES
+           ('Capit123'
+           ,'123'
+           ,0
+           ,'Capit123@gmail.com'
+           ,'0521234567')
+GO
+
+INSERT INTO [Businesses]
+           ([BusinessName]
+           ,[BusinessAddress]
+           ,[Bio]
+           ,[CategoryId]
+           ,[InternetUrl]
+           ,[UserName]
+           ,[InstagramUrl]
+           ,[FacebookUrl])
+     VALUES
+           ('dc Barbershop'
+           ,'Ezer Weizman 8'
+           ,''
+           ,10
+           ,'' 
+           ,'DcBarber'
+           ,''
+           ,'')
+GO
+
+INSERT INTO [Businesses]
+           ([BusinessName]
+           ,[BusinessAddress]
+           ,[Bio]
+           ,[CategoryId]
+           ,[InternetUrl]
+           ,[UserName]
+           ,[InstagramUrl]
+           ,[FacebookUrl])
+     VALUES
+           ('Ofek Mazori'
+           ,'Ana Frank 1'
+           ,''
+           ,11
+           ,'' 
+           ,'Mazka18'
+           ,''
+           ,'')
+GO
+
+INSERT INTO [Businesses]
+           ([BusinessName]
+           ,[BusinessAddress]
+           ,[Bio]
+           ,[CategoryId]
+           ,[InternetUrl]
+           ,[UserName]
+           ,[InstagramUrl]
+           ,[FacebookUrl])
+     VALUES
+           ('Amit Yogev'
+           ,'Hetzel 32'
+           ,''
+           ,12
+           ,'' 
+           ,'Capit123'
+           ,''
+           ,'')
+GO
+
+
+
+INSERT INTO [Histories]
+           ([ClientId]
+           ,[BusinessId]
+           ,[HDate]
+           ,[IsActive])
+     VALUES
+           (100000
+           ,10003
+           ,GETDATE()
+           ,1)
+GO
+
+INSERT INTO [Histories]
+           ([ClientId]
+           ,[BusinessId]
+           ,[HDate]
+           ,[IsActive])
+     VALUES
+           (100000
+           ,10004
+           ,GETDATE()
+           ,1)
+GO
+
+INSERT INTO [Histories]
+           ([ClientId]
+           ,[BusinessId]
+           ,[HDate]
+           ,[IsActive])
+     VALUES
+           (100000
+           ,10005
+           ,GETDATE()
+           ,1)
+GO
+
+
+INSERT INTO [Favorites]
+           ([ClientId]
+           ,[BusinessId]
+           ,[IsActive])
+     VALUES
+           (100000
+           ,10003
+           ,1)
+GO
+
+INSERT INTO [Favorites]
+           ([ClientId]
+           ,[BusinessId]
+           ,[IsActive])
+     VALUES
+           (100000
+           ,10004
+           ,1)
+GO
+
+INSERT INTO [Favorites]
+           ([ClientId]
+           ,[BusinessId]
+           ,[IsActive])
+     VALUES
+           (100000
+           ,10005
+           ,1)
+GO
