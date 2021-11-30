@@ -38,10 +38,11 @@ namespace RazervationServer.Controllers
                 if (user.UserType == true)//client
                 {
                     Client client = context.Clients.Where(c => c.UserName == user.UserName)
-                        .Include(cl => cl.Favorites)
-                        .Include(cl => cl.Histories)
-                        .Include(cl => cl.Comments)
-                        .Include(cl => cl.Reservations)
+                        .Include(cl => cl.Favorites).ThenInclude(cl => cl.Business).ThenInclude(cl=>cl.Category)
+                        .Include(cl => cl.Histories).ThenInclude(cl => cl.Business).ThenInclude(cl => cl.Category)
+                        .Include(cl => cl.Comments).ThenInclude(cl => cl.Business).ThenInclude(cl => cl.Category)
+                        .Include(cl => cl.Reservations).ThenInclude(cl => cl.Business).ThenInclude(cl => cl.Category)
+                        .Include(cl => cl.Reservations).ThenInclude(cl => cl.Service)
                         .FirstOrDefault();
                     mUser = new MainUserDTO { Business = null, Client = client, User = user };
 

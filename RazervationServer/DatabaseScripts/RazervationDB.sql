@@ -87,7 +87,8 @@ CREATE TABLE Comments(
     CommentText nvarchar,
     ClientId INT NOT NULL,
     AutoCommentId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
-	Rating INT NOT NULL
+	Rating INT NOT NULL,
+    CDate DATETIME NOT NULL
 );
 
 
@@ -380,7 +381,7 @@ INSERT INTO [Histories]
            ,[IsActive])
      VALUES
            (100000
-           ,10003
+           ,10000
            ,GETDATE()
            ,1)
 GO
@@ -392,7 +393,7 @@ INSERT INTO [Histories]
            ,[IsActive])
      VALUES
            (100000
-           ,10004
+           ,10001
            ,GETDATE()
            ,1)
 GO
@@ -404,7 +405,7 @@ INSERT INTO [Histories]
            ,[IsActive])
      VALUES
            (100000
-           ,10005
+           ,10002
            ,GETDATE()
            ,1)
 GO
@@ -416,7 +417,7 @@ INSERT INTO [Favorites]
            ,[IsActive])
      VALUES
            (100000
-           ,10003
+           ,10000
            ,1)
 GO
 
@@ -426,7 +427,7 @@ INSERT INTO [Favorites]
            ,[IsActive])
      VALUES
            (100000
-           ,10004
+           ,10001
            ,1)
 GO
 
@@ -436,6 +437,461 @@ INSERT INTO [Favorites]
            ,[IsActive])
      VALUES
            (100000
-           ,10005
+           ,10002
+           ,1)
+GO
+
+
+INSERT INTO [dbo].[ReserveStatus]
+           ([StatusName])
+     VALUES
+           ('Active')
+GO
+
+INSERT INTO [dbo].[ReserveStatus]
+           ([StatusName])
+     VALUES
+           ('Deleted by client')
+GO
+
+INSERT INTO [dbo].[ReserveStatus]
+           ([StatusName])
+     VALUES
+           ('Deleted by business')
+GO
+
+INSERT INTO [dbo].[ReserveStatus]
+           ([StatusName])
+     VALUES
+           ('Deleted by business to all')
+GO
+
+INSERT INTO [dbo].[ReserveStatus]
+           ([StatusName])
+     VALUES
+           ('Completed')
+GO
+
+
+INSERT INTO [dbo].[BServices]
+           ([ServiceName]
+           ,[DurationMin]
+           ,[Price]
+           ,[BusinessId])
+     VALUES
+           ('Mans Cut'
+           ,20
+           ,10
+           ,10000)
+GO
+
+INSERT INTO [dbo].[BServices]
+           ([ServiceName]
+           ,[DurationMin]
+           ,[Price]
+           ,[BusinessId])
+     VALUES
+           ('Private Lesson'
+           ,60
+           ,25
+           ,10001)
+GO
+
+INSERT INTO [dbo].[BServices]
+           ([ServiceName]
+           ,[DurationMin]
+           ,[Price]
+           ,[BusinessId])
+     VALUES
+           ('Brain Check'
+           ,30
+           ,300
+           ,10002)
+GO
+
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10000
+           ,1
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10000
+           ,2
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10000
+           ,3
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10000
+           ,4
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10000
+           ,5
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10000
+           ,6
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10000
+           ,7
+           ,'8:00'
+           ,'17:00'
+           ,0)
+GO
+
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10001
+           ,1
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10001
+           ,2
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10001
+           ,3
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10001
+           ,4
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10001
+           ,5
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10001
+           ,6
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10001
+           ,7
+           ,'8:00'
+           ,'17:00'
+           ,0)
+GO
+
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10002
+           ,1
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10002
+           ,2
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10002
+           ,3
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10002
+           ,4
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10002
+           ,5
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10002
+           ,6
+           ,'8:00'
+           ,'17:00'
+           ,1)
+GO
+
+INSERT INTO [dbo].[BusinessDays]
+           ([BusinessId]
+           ,[DayNum]
+           ,[StartTime]
+           ,[EndTime]
+           ,[NumberOfWorkers])
+     VALUES
+           (10002
+           ,7
+           ,'8:00'
+           ,'17:00'
+           ,0)
+GO
+
+INSERT INTO [dbo].[Reservation]
+           ([StartDateTime]
+           ,[EndTime]
+           ,[BusinessId]
+           ,[ClientId]
+           ,[ServiceId]
+           ,[DayId]
+           ,[StatusId])
+     VALUES
+           ('20211205 10:35:00 AM'
+           ,'20211205 10:55:00 AM'
+           ,10000
+           ,100000
+           ,100000
+           ,100000
+           ,1)
+GO
+
+INSERT INTO [dbo].[Reservation]
+           ([StartDateTime]
+           ,[EndTime]
+           ,[BusinessId]
+           ,[ClientId]
+           ,[ServiceId]
+           ,[DayId]
+           ,[StatusId])
+     VALUES
+           ('20211206 10:35:00 AM'
+           ,'20211206 10:55:00 AM'
+           ,10000
+           ,100000
+           ,100000
+           ,100001
+           ,1)
+GO
+
+INSERT INTO [dbo].[Reservation]
+           ([StartDateTime]
+           ,[EndTime]
+           ,[BusinessId]
+           ,[ClientId]
+           ,[ServiceId]
+           ,[DayId]
+           ,[StatusId])
+     VALUES
+           ('20211207 10:35:00 AM'
+           ,'20211207 10:55:00 AM'
+           ,10000
+           ,100000
+           ,100000
+           ,100002
+           ,1)
+GO
+
+INSERT INTO [dbo].[Reservation]
+           ([StartDateTime]
+           ,[EndTime]
+           ,[BusinessId]
+           ,[ClientId]
+           ,[ServiceId]
+           ,[DayId]
+           ,[StatusId])
+     VALUES
+           ('20211208 10:35:00 AM'
+           ,'20211208 10:55:00 AM'
+           ,10000
+           ,100000
+           ,100000
+           ,100003
+           ,1)
+GO
+
+INSERT INTO [dbo].[Reservation]
+           ([StartDateTime]
+           ,[EndTime]
+           ,[BusinessId]
+           ,[ClientId]
+           ,[ServiceId]
+           ,[DayId]
+           ,[StatusId])
+     VALUES
+           ('20211209 10:35:00 AM'
+           ,'20211209 10:55:00 AM'
+           ,10000
+           ,100000
+           ,100000
+           ,100004
            ,1)
 GO
