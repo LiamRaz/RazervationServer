@@ -25,12 +25,16 @@ namespace RazervationServerBL.Models
 
         public bool ClientSignUp(Client c, User u)
         {
-            u.UserType = true;//the user is a client
 
-            this.Users.Add(u);
-            this.Clients.Add(c);
-            this.SaveChanges();
-            return true;
+            if(c != null && u != null)
+            {
+                u.UserType = true;//the user is a client
+                this.Users.Add(u);
+                this.Clients.Add(c);
+                this.SaveChanges();
+                return true;
+            }
+            return false;
 
         }
 
@@ -39,13 +43,16 @@ namespace RazervationServerBL.Models
 
         public bool BusinessSignUp(Business b, User u)
         {
-            u.UserType = false;//the user is a client
+            if (b != null && u != null)
+            {
+                u.UserType = false;//the user is a business
+                this.Users.Add(u);
+                this.Businesses.Add(b);
+                this.SaveChanges();
+                return true;
+            }
 
-            this.Users.Add(u);
-            this.Businesses.Add(b);
-            this.SaveChanges();
-            return true;
-
+            return false;
         }
 
 
@@ -119,6 +126,31 @@ namespace RazervationServerBL.Models
             return businesses;
 
         }
+
+
+        // Update Details For Client
+
+        public bool UpdateClientDetails(string firstName, string lastName, string userName, string email, string password, string phoneNum, string gender, Client c, User u)
+        {
+            
+            Client currentClient = this.Clients.Where(cl => cl.ClientId == c.ClientId).FirstOrDefault();
+            User currentUser = this.Users.Where(us => us.UserName == u.UserName).FirstOrDefault();
+            if (currentClient != null && currentUser != null)
+            {
+                currentClient.FirstName = firstName;
+                currentClient.LastName = lastName;
+                currentClient.UserName = userName;
+                currentClient.Gender = gender;
+                currentUser.Email = email;
+                currentUser.UserPassword = password;
+                currentUser.PhoneNumber = phoneNum;
+                this.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+
 
         public string Test()
         {

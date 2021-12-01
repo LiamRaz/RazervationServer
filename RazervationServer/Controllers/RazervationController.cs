@@ -222,12 +222,35 @@ namespace RazervationServer.Controllers
         }
 
 
+        // The Update Details For Client Function
+
+        [Route("UpdateClientDetails")]
+        [HttpGet]
+
+        public bool UpdateClientDetails([FromQuery] string firstName, [FromQuery] string lastName, [FromQuery] string userName, [FromQuery] string email,
+            [FromQuery] string password, [FromQuery] string phoneNum, [FromQuery] string gender)
+        {
+
+            MainUserDTO currentMUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
+
+            bool isSuccess = context.UpdateClientDetails(firstName, lastName, userName, email, password, phoneNum, gender, currentMUser.Client , currentMUser.User);
+
+            if (isSuccess)//the reservation has been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the reservation has not been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
+
+            // test func
 
 
-        // test func
-
-
-        [Route("Test")]
+            [Route("Test")]
         [HttpGet]
         public string Test()
         {
