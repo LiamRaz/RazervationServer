@@ -247,10 +247,34 @@ namespace RazervationServer.Controllers
             }
         }
 
-            // test func
+
+        // The Function That Deletes A Comment
 
 
-            [Route("Test")]
+        [Route("DeleteComment")]
+        [HttpGet]
+
+        public bool DeleteComment([FromQuery] string commentId)
+        {
+            bool isSuccess = context.DeleteComment(commentId);
+
+            if (isSuccess)//the comment has been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the comment has not been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
+
+
+        // test func
+
+
+        [Route("Test")]
         [HttpGet]
         public string Test()
         {

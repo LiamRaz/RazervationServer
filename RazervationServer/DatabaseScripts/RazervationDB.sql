@@ -25,7 +25,7 @@ CREATE TABLE Businesses(
     --UserId INT NOT NULL,
     BusinessName nvarchar(255) NOT NULL,
     BusinessAddress nvarchar(255) NOT NULL,
-    Bio nvarchar,
+    Bio nvarchar(255),
     CategoryId INT NOT NULL,
     InternetUrl nvarchar(255),
     UserName nvarchar(255) NOT NULL,
@@ -84,11 +84,12 @@ CREATE TABLE Favorites(
 
 CREATE TABLE Comments(
     BusinessId INT NOT NULL,
-    CommentText nvarchar,
+    CommentText nvarchar(255),
     ClientId INT NOT NULL,
     AutoCommentId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL,
 	Rating INT NOT NULL,
-    CDate DATETIME NOT NULL
+    CDate DATETIME NOT NULL,
+    IsActive BIT NOT NULL
 );
 
 
@@ -324,7 +325,7 @@ INSERT INTO [Businesses]
      VALUES
            ('dc Barbershop'
            ,'Ezer Weizman 8'
-           ,''
+           ,'Welcome to dc barbershop! the best barber in hodash'
            ,10
            ,'' 
            ,'DcBarber'
@@ -344,7 +345,7 @@ INSERT INTO [Businesses]
      VALUES
            ('Ofek Mazori'
            ,'Ana Frank 1'
-           ,''
+           ,'hi i am ofek'
            ,11
            ,'' 
            ,'Mazka18'
@@ -364,7 +365,7 @@ INSERT INTO [Businesses]
      VALUES
            ('Amit Yogev'
            ,'Hetzel 32'
-           ,''
+           ,'Yafe vegam ophe'
            ,12
            ,'' 
            ,'Capit123'
@@ -815,8 +816,8 @@ INSERT INTO [dbo].[Reservation]
            ,[DayId]
            ,[StatusId])
      VALUES
-           ('20211205 10:35:00 AM'
-           ,'20211205 10:55:00 AM'
+           ('20221205 10:35:00 AM'
+           ,'20221205 10:55:00 AM'
            ,10000
            ,100000
            ,100000
@@ -833,8 +834,8 @@ INSERT INTO [dbo].[Reservation]
            ,[DayId]
            ,[StatusId])
      VALUES
-           ('20211206 10:35:00 AM'
-           ,'20211206 10:55:00 AM'
+           ('20221206 10:35:00 AM'
+           ,'20221206 10:55:00 AM'
            ,10000
            ,100000
            ,100000
@@ -851,8 +852,8 @@ INSERT INTO [dbo].[Reservation]
            ,[DayId]
            ,[StatusId])
      VALUES
-           ('20211207 10:35:00 AM'
-           ,'20211207 10:55:00 AM'
+           ('20221207 10:35:00 AM'
+           ,'20221207 10:55:00 AM'
            ,10000
            ,100000
            ,100000
@@ -869,8 +870,8 @@ INSERT INTO [dbo].[Reservation]
            ,[DayId]
            ,[StatusId])
      VALUES
-           ('20211208 10:35:00 AM'
-           ,'20211208 10:55:00 AM'
+           ('20221208 10:35:00 AM'
+           ,'20221208 10:55:00 AM'
            ,10000
            ,100000
            ,100000
@@ -887,11 +888,60 @@ INSERT INTO [dbo].[Reservation]
            ,[DayId]
            ,[StatusId])
      VALUES
-           ('20211209 10:35:00 AM'
-           ,'20211209 10:55:00 AM'
+           ('20221209 10:35:00 AM'
+           ,'20221209 10:55:00 AM'
            ,10000
            ,100000
            ,100000
            ,100004
+           ,1)
+GO
+
+
+INSERT INTO [dbo].[Comments]
+           ([BusinessId]
+           ,[CommentText]
+           ,[ClientId]
+           ,[Rating]
+           ,[CDate]
+           ,[IsActive])
+     VALUES
+           (10000
+           ,'dc barbershop is the best barbershop i have ever gotten a cut from!'
+           ,100000
+           ,10
+           ,GETDATE()
+           ,1)
+GO
+
+INSERT INTO [dbo].[Comments]
+           ([BusinessId]
+           ,[CommentText]
+           ,[ClientId]
+           ,[Rating]
+           ,[CDate]
+           ,[IsActive])
+     VALUES
+           (10001
+           ,'Mazka is not a good teacher... stay away!'
+           ,100000
+           ,3
+           ,GETDATE()
+           ,1)
+GO
+
+INSERT INTO [dbo].[Comments]
+           ([BusinessId]
+           ,[CommentText]
+           ,[ClientId]
+           ,[Rating]
+           ,[CDate]
+           ,[IsActive])
+     VALUES
+           (10003
+           ,'Amit Yogev Is a fine doctor but is more handsome'
+           ,100000
+           ,6
+           ,GETDATE()
            ,1)
 GO

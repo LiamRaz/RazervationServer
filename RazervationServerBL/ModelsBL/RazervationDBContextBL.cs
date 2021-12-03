@@ -85,12 +85,15 @@ namespace RazervationServerBL.Models
             }
             else 
             {
-                TimeSpan timeDifference = chosenReservation.StartDateTime - DateTime.Now;
-                if(timeDifference <= TimeSpan.FromHours(2))
+                if(statusId == 2)
                 {
-                    return false;
+                    TimeSpan timeDifference = chosenReservation.StartDateTime - DateTime.Now;
+                    if (timeDifference <= TimeSpan.FromHours(2))
+                    {
+                        return false;
+                    }
                 }
-
+                
 
                 chosenReservation.Status = this.ReserveStatuses.Where(s => s.StatusId == statusId).FirstOrDefault();
                 if(chosenReservation.Status == null)
@@ -148,6 +151,25 @@ namespace RazervationServerBL.Models
                 return true;
             }
             return false;
+        }
+
+
+        // The Function That Deletes A Comment
+
+        public bool DeleteComment(string strCommentId)
+        {
+            int commentId = int.Parse(strCommentId);
+            Comment toDelete = this.Comments.Where(c => c.AutoCommentId == commentId).FirstOrDefault();
+            if(toDelete != null)
+            {
+                toDelete.IsActive = false;
+                this.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 

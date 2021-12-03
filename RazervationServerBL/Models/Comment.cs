@@ -13,6 +13,7 @@ namespace RazervationServerBL.Models
         public int AutoCommentId { get; set; }
         public int Rating { get; set; }
         public DateTime Cdate { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual Business Business { get; set; }
         public virtual Client Client { get; set; }
