@@ -114,7 +114,7 @@ namespace RazervationServerBL.Models
         public List<Business> Search(string searchInput)
         {
             List<Business> businesses = this.Businesses.Where(b => b.BusinessName.Contains(searchInput) || b.BusinessAddress.Contains(searchInput)
-                                        || b.Category.CategoryName.Contains(searchInput) || b.Bio.Contains(searchInput)).ToList<Business>();
+                                        || b.Category.CategoryName.Contains(searchInput) || b.Bio.Contains(searchInput)).Include(b => b.Category).Include(b => b.Comments).ToList<Business>();
             return businesses;
             
         }
@@ -125,7 +125,8 @@ namespace RazervationServerBL.Models
         public List<Business> SearchByCategory(string strCategoryId)
         {
             int categoryId = int.Parse(strCategoryId);
-            List<Business> businesses = this.Businesses.Where(b => b.CategoryId == categoryId).ToList<Business>();
+            List<Business> businesses = this.Businesses.Where(b => b.CategoryId == categoryId).Include(b=> b.Category).Include(b => b.Comments).ToList<Business>();
+
             return businesses;
 
         }
