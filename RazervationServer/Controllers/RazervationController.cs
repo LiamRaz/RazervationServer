@@ -174,6 +174,33 @@ namespace RazervationServer.Controllers
             }
         }
 
+        
+
+        [Route("GetAllBusinesses")]
+        [HttpGet]
+        public List<Business> GetAllBusinesses()
+        {
+
+            List<Business> businesses = this.context.Businesses.ToList<Business>();
+
+
+            //Check if there are any categories
+            if (businesses != null)
+            {
+
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+
+                return businesses;
+            }
+            else
+            {
+
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return null;
+            }
+        }
+
+
 
         // a function that changes the reservation status
 
