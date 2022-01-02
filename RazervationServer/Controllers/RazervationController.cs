@@ -50,6 +50,7 @@ namespace RazervationServer.Controllers
                 else//business
                 {
                     Business business = context.Businesses.Where(b => b.UserName == user.UserName)
+                        .Include(b => b.Category)
                         .Include(b => b.BusinessDays)
                         .Include(b => b.Comments)
                         .Include(b => b.Favorites)
@@ -181,7 +182,13 @@ namespace RazervationServer.Controllers
         public List<Business> GetAllBusinesses()
         {
 
-            List<Business> businesses = this.context.Businesses.ToList<Business>();
+            List<Business> businesses = this.context.Businesses.Include(b => b.Category)
+                        .Include(b => b.UserNameNavigation)
+                        .Include(b => b.Comments)
+                        .Include(b => b.Favorites)
+                        .Include(b => b.Histories)
+                        .Include(b => b.Reservations)
+                        .Include(b => b.SpecialNumberOfWorkers).ToList<Business>();
 
 
             //Check if there are any categories
