@@ -305,6 +305,52 @@ namespace RazervationServer.Controllers
         }
 
 
+        // a function that creates a new favorite or activates one
+
+
+        [Route("AddFavorite")]
+        [HttpGet]
+
+        public bool AddFavorite([FromQuery] string clientId, [FromQuery] string businessId)
+        {
+            bool isSuccess = context.AddFavorite(clientId,businessId);
+
+            if (isSuccess)//the comment has been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the comment has not been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
+
+        // a function that deletes a favorite
+
+
+        [Route("DeleteFavorite")]
+        [HttpGet]
+
+        public bool DeleteFavorite([FromQuery] string clientId, [FromQuery] string businessId)
+        {
+            bool isSuccess = context.DeleteFavorite(clientId, businessId);
+
+            if (isSuccess)//the comment has been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the comment has not been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
+
+
+
         // test func
 
 

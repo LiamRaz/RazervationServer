@@ -173,6 +173,81 @@ namespace RazervationServerBL.Models
             }
         }
 
+        // a function that creates a new favorite or activates one
+
+        public bool AddFavorite(string strClientId, string strBusinessId)
+        {
+            try
+            {
+                int clientId = int.Parse(strClientId);
+                int businessId = int.Parse(strBusinessId);
+
+                Favorite existedFavorite = this.Favorites.Where(f => f.ClientId == clientId && f.BusinessId == businessId).FirstOrDefault();
+                if (existedFavorite != null)
+                {
+                    existedFavorite.IsActive = true;
+                }
+                else
+                {
+                    Business chosenBusiness = this.Businesses.Where(b => b.BusinessId == businessId).FirstOrDefault();
+                    Client chosenClient = this.Clients.Where(c => c.ClientId == clientId).FirstOrDefault();
+
+                    if (chosenBusiness != null && chosenClient != null)
+                    {
+                        Favorite newFavorite = new Favorite
+                        {
+                            Business = chosenBusiness,
+                            Client = chosenClient,
+                            IsActive = true
+                        };
+                    }
+                    else
+                        return false;
+                }
+
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+           
+                
+
+        }
+
+
+        // a function that deletes a favorite
+
+        public bool DeleteFavorite(string strClientId, string strBusinessId)
+        {
+            try
+            {
+                int clientId = int.Parse(strClientId);
+                int businessId = int.Parse(strBusinessId);
+
+                Favorite favoriteToDelete = this.Favorites.Where(f => f.ClientId == clientId && f.BusinessId == businessId).FirstOrDefault();
+                if (favoriteToDelete != null)
+                {
+                    favoriteToDelete.IsActive = false;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+
+
+        }
+
+
 
 
         public string Test()
