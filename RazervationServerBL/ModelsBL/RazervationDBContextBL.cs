@@ -187,6 +187,7 @@ namespace RazervationServerBL.Models
                 if (existedFavorite != null)
                 {
                     existedFavorite.IsActive = true;
+                    this.SaveChanges();
                 }
                 else
                 {
@@ -201,6 +202,8 @@ namespace RazervationServerBL.Models
                             Client = chosenClient,
                             IsActive = true
                         };
+                        this.Favorites.Add(newFavorite);
+                        this.SaveChanges();
                     }
                     else
                         return false;
@@ -231,6 +234,7 @@ namespace RazervationServerBL.Models
                 if (favoriteToDelete != null)
                 {
                     favoriteToDelete.IsActive = false;
+                    this.SaveChanges();
                     return true;
                 }
                 else
