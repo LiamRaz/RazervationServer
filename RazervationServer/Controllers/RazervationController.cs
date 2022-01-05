@@ -350,6 +350,27 @@ namespace RazervationServer.Controllers
         }
 
 
+        // a function that creates a new comment
+
+        [Route("AddComment")]
+        [HttpPost]
+        public bool AddComment([FromBody] CommentDTO comment)
+        {
+            bool isSuccess = context.AddComment(comment.ClientId,comment.BusinessId,comment.Rating,comment.CommentText,comment.Cdate);
+
+            if (isSuccess)//the reservation has been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the reservation has not been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
+
+
 
         // test func
 

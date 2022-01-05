@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+
  
 
 namespace RazervationServerBL.Models
@@ -248,6 +249,34 @@ namespace RazervationServerBL.Models
         }
 
 
+        // a function that creates a comment
+
+        public bool AddComment(int clientId, int businessId, int rating, string commentText, DateTime cDate)
+        {
+            Client client = this.Clients.Where(c => c.ClientId == clientId).FirstOrDefault();
+            Business business = this.Businesses.Where(b => b.BusinessId == businessId).FirstOrDefault();
+            if(business != null && client != null)
+            {
+                Comment newComment = new Comment
+                {
+                    Business = business,
+                    Client = client,
+                    Rating = rating,
+                    CommentText = commentText,
+                    Cdate = cDate,
+                    IsActive = true
+                };
+
+                this.Comments.Add(newComment);
+                this.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
 
 
         public string Test()
