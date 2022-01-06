@@ -257,6 +257,10 @@ namespace RazervationServerBL.Models
 
         public bool AddComment(int clientId, int businessId, int rating, string commentText, DateTime cDate)
         {
+            Comment existedComment = this.Comments.Where(c => c.ClientId == clientId && c.BusinessId == businessId).FirstOrDefault();
+            if (existedComment != null && existedComment.IsActive)
+                return false;
+
             Client client = this.Clients.Where(c => c.ClientId == clientId).FirstOrDefault();
             Business business = this.Businesses.Where(b => b.BusinessId == businessId).FirstOrDefault();
             if(business != null && client != null)
