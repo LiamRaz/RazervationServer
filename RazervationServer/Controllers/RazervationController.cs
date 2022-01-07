@@ -184,11 +184,13 @@ namespace RazervationServer.Controllers
 
             List<Business> businesses = this.context.Businesses.Include(b => b.Category)
                         .Include(b => b.UserNameNavigation)
-                        .Include(b => b.Comments)
+                        .Include(b => b.Comments).ThenInclude(b => b.Client)
                         .Include(b => b.Favorites)
                         .Include(b => b.Histories)
                         .Include(b => b.Reservations)
-                        .Include(b => b.SpecialNumberOfWorkers).ToList<Business>();
+                        .Include(b => b.SpecialNumberOfWorkers)
+                        .Include(b => b.Bservices)
+                        .ToList<Business>();
 
 
             //Check if there are any categories
