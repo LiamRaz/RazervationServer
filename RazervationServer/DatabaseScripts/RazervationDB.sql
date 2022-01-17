@@ -938,7 +938,7 @@ INSERT INTO [dbo].[Comments]
            ,[CDate]
            ,[IsActive])
      VALUES
-           (10003
+           (10002
            ,'Amit Yogev Is a fine doctor but is more handsome'
            ,100000
            ,6
