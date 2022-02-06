@@ -68,6 +68,7 @@ namespace RazervationServer.Controllers
             if (mUser != null)
             {
                 HttpContext.Session.SetObject("theUser", mUser);
+                
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
 
