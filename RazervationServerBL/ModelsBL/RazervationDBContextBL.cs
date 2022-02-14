@@ -117,14 +117,16 @@ namespace RazervationServerBL.Models
             List<Business> businesses = this.Businesses.Where(b => b.BusinessName.Contains(searchInput) || b.BusinessAddress.Contains(searchInput)
                                         || b.Category.CategoryName.Contains(searchInput) || b.Bio.Contains(searchInput))
                         .Include(b => b.UserNameNavigation).Include(b => b.Category)
-                        //.Include(b => b.BusinessDays)
+                        .Include(b => b.BusinessDays)
                         .Include(b => b.Comments).ThenInclude(b => b.Client)
                         .Include(b => b.Favorites)
                         .Include(b => b.Histories)
                         .Include(b => b.Reservations)
                         .Include(b => b.SpecialNumberOfWorkers)
-                        //.Include(b => b.Bservices)
+                        .Include(b => b.Bservices)
                         .ToList<Business>();
+
+
             return businesses;
             
         }

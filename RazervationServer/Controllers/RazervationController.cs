@@ -241,7 +241,13 @@ namespace RazervationServer.Controllers
         public List<Business> Search([FromQuery] string searchInput)
         {
 
-            List<Business> businesses = this.context.Search(searchInput);     
+            List<Business> businesses = this.context.Search(searchInput);
+            //List<BusinessDTO> businessesDTO = new List<BusinessDTO>();
+            //foreach (Business b in businesses)
+            //{
+            //    businessesDTO.Add(new BusinessDTO(b));
+            //}
+
             Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
             return businesses;
 
