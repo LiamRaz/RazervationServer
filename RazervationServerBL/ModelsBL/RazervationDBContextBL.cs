@@ -139,13 +139,13 @@ namespace RazervationServerBL.Models
             int categoryId = int.Parse(strCategoryId);
             List<Business> businesses = this.Businesses.Where(b => b.CategoryId == categoryId).Include(b => b.Category)
                 .Include(b => b.UserNameNavigation)
-                        //.Include(b => b.BusinessDays)
+                        .Include(b => b.BusinessDays)
                         .Include(b => b.Comments).ThenInclude(b => b.Client)
                         .Include(b => b.Favorites)
                         .Include(b => b.Histories)
                         .Include(b => b.Reservations)
                         .Include(b => b.SpecialNumberOfWorkers)
-                        //.Include(b => b.Bservices)
+                        .Include(b => b.Bservices)
                         .ToList<Business>();
 
             return businesses;

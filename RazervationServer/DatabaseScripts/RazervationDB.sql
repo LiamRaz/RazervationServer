@@ -125,8 +125,8 @@ CREATE TABLE Users(
 CREATE TABLE BusinessDays(
     BusinessId INT NOT NULL,
     DayNum INT NOT NULL,
-    StartTime TIME NOT NULL,
-    EndTime TIME NOT NULL,
+    StartTime DATETIME NOT NULL,
+    EndTime DATETIME NOT NULL,
     NumberOfWorkers INT NOT NULL,
     DayId INT IDENTITY(100000,1) PRIMARY KEY NOT NULL
 );
@@ -520,8 +520,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10000
            ,1
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -534,8 +534,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10000
            ,2
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -548,8 +548,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10000
            ,3
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -562,8 +562,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10000
            ,4
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -576,8 +576,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10000
            ,5
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -590,8 +590,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10000
            ,6
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -604,8 +604,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10000
            ,7
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,0)
 GO
 
@@ -619,8 +619,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10001
            ,1
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -633,8 +633,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10001
            ,2
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -647,8 +647,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10001
            ,3
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -661,8 +661,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10001
            ,4
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -675,8 +675,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10001
            ,5
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -689,8 +689,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10001
            ,6
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -703,8 +703,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10001
            ,7
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,0)
 GO
 
@@ -718,8 +718,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10002
            ,1
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -732,8 +732,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10002
            ,2
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -746,8 +746,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10002
            ,3
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -760,8 +760,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10002
            ,4
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -774,8 +774,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10002
            ,5
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -788,8 +788,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10002
            ,6
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,1)
 GO
 
@@ -802,8 +802,8 @@ INSERT INTO [dbo].[BusinessDays]
      VALUES
            (10002
            ,7
-           ,'8:00'
-           ,'17:00'
+           ,'20000101 8:00:00 AM'
+           ,'20000101 5:00:00 PM'
            ,0)
 GO
 
