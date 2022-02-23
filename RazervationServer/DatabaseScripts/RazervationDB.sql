@@ -28,7 +28,7 @@ CREATE TABLE Businesses(
     Bio nvarchar(255),
     CategoryId INT NOT NULL,
     InternetUrl nvarchar(255),
-    UserName nvarchar(255) NOT NULL,
+    UserName nvarchar(255),
     InstagramUrl nvarchar(255),
     FacebookUrl nvarchar(255),
     --BusinessImage nvarchar(255)
@@ -194,7 +194,7 @@ ALTER TABLE
 ALTER TABLE
     Clients ADD CONSTRAINT clients_userid_foreign FOREIGN KEY(UserName) REFERENCES Users(UserName);
 ALTER TABLE
-    Businesses ADD CONSTRAINT businesses_userid_foreign FOREIGN KEY(UserName) REFERENCES Users(UserName);
+    Businesses ADD CONSTRAINT FK_Businesses_Users FOREIGN KEY(UserName) REFERENCES Users(UserName);
 
 
 

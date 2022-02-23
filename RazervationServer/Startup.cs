@@ -52,7 +52,7 @@ namespace RazervationServer
             string connectionString = this.Configuration.GetConnectionString("RazervationDB");
 
             services.AddDbContext<RazervationDBContext>(options => options
-                                                                .UseSqlServer(connectionString));
+                                                                .UseSqlServer(connectionString).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             //.UseLazyLoadingProxies());
             #endregion
         }

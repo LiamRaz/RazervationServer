@@ -30,7 +30,6 @@ namespace RazervationServerBL.Models
             if(c != null && u != null)
             {
                 u.UserType = true;//the user is a client
-                this.Users.Add(u);
                 this.Clients.Add(c);
                 this.SaveChanges();
                 return true;
@@ -47,8 +46,9 @@ namespace RazervationServerBL.Models
             if (b != null && u != null)
             {
                 u.UserType = false;//the user is a business
-                this.Users.Add(u);
+                                   //  this.Users.Update(u);
                 this.Businesses.Add(b);
+                this.Entry(b.Category).State = EntityState.Unchanged;
                 this.SaveChanges();
                 return true;
             }

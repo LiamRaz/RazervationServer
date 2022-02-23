@@ -46,7 +46,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<Bservice>(entity =>
             {
                 entity.HasKey(e => e.ServiceId)
-                    .HasName("PK__BService__C51BB00A19DDC64D");
+                    .HasName("PK__BService__C51BB00A5B45DE75");
 
                 entity.ToTable("BServices");
 
@@ -79,9 +79,7 @@ namespace RazervationServerBL.Models
 
                 entity.Property(e => e.InternetUrl).HasMaxLength(255);
 
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.UserName).HasMaxLength(255);
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Businesses)
@@ -92,14 +90,13 @@ namespace RazervationServerBL.Models
                 entity.HasOne(d => d.UserNameNavigation)
                     .WithMany(p => p.Businesses)
                     .HasForeignKey(d => d.UserName)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("businesses_userid_foreign");
+                    .HasConstraintName("FK_Businesses_Users");
             });
 
             modelBuilder.Entity<BusinessDay>(entity =>
             {
                 entity.HasKey(e => e.DayId)
-                    .HasName("PK__Business__BF3DD8C5F2C8F930");
+                    .HasName("PK__Business__BF3DD8C5C9A4F33E");
 
                 entity.Property(e => e.EndTime).HasColumnType("datetime");
 
@@ -155,7 +152,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.HasKey(e => e.AutoCommentId)
-                    .HasName("PK__Comments__44A0477E91FF13B7");
+                    .HasName("PK__Comments__44A0477E0763631C");
 
                 entity.Property(e => e.Cdate)
                     .HasColumnType("datetime")
@@ -252,7 +249,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<ReserveStatus>(entity =>
             {
                 entity.HasKey(e => e.StatusId)
-                    .HasName("PK__ReserveS__C8EE20632A317E30");
+                    .HasName("PK__ReserveS__C8EE20635CCE5585");
 
                 entity.ToTable("ReserveStatus");
 
@@ -264,7 +261,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<SpecialNumberOfWorker>(entity =>
             {
                 entity.HasKey(e => e.SpecialDate)
-                    .HasName("PK__SpecialN__754CBCC41BC1F448");
+                    .HasName("PK__SpecialN__754CBCC4A5B765ED");
 
                 entity.Property(e => e.SpecialDate).HasColumnType("datetime");
 
@@ -278,12 +275,12 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.UserName)
-                    .HasName("PK__Users__C9F284572FAE257A");
+                    .HasName("PK__Users__C9F2845783821554");
 
-                entity.HasIndex(e => e.PhoneNumber, "UQ__Users__85FB4E383285B7FF")
+                entity.HasIndex(e => e.PhoneNumber, "UQ__Users__85FB4E38546437B0")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__Users__A9D105345AD75205")
+                entity.HasIndex(e => e.Email, "UQ__Users__A9D10534F04BDB9E")
                     .IsUnique();
 
                 entity.Property(e => e.UserName).HasMaxLength(255);
