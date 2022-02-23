@@ -381,6 +381,25 @@ namespace RazervationServer.Controllers
         }
 
 
+        // get reservations function
+
+        [Route("GetBusinessReservations")]
+        [HttpGet]
+        public List<Reservation> GetBusinessReservations([FromQuery] string businessId, [FromQuery] string statusId, [FromQuery] string date)
+        {
+
+            List<Reservation> reservations = context.GetReservations(businessId, statusId, date);
+
+            Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            return reservations;
+
+        }
+
+
+
+
+
+
 
         // test func
 

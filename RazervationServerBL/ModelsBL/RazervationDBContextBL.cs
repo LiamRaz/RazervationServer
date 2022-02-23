@@ -307,6 +307,19 @@ namespace RazervationServerBL.Models
         }
 
 
+        // get reservations
+
+        public List<Reservation> GetReservations(string businessIdStr, string statusIdStr, string dateStr)
+        {
+            int businessId = int.Parse(businessIdStr);
+            int statusId = int.Parse(statusIdStr);
+            DateTime date = DateTime.Parse(dateStr);
+
+            return this.Reservations.Where(r => r.BusinessId == businessId && r.StatusId == statusId && DateTime.Compare(r.StartDateTime.Date,date.Date) == 0).ToList<Reservation>();
+        }
+
+
+
         public string Test()
         {
             return "test";
