@@ -313,7 +313,7 @@ namespace RazervationServerBL.Models
         {
             int businessId = int.Parse(businessIdStr);
             int statusId = int.Parse(statusIdStr);
-            DateTime date = DateTime.Parse(dateStr);
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MM/yyyy", null);
 
             return this.Reservations.Where(r => r.BusinessId == businessId && r.StatusId == statusId && DateTime.Compare(r.StartDateTime.Date,date.Date) == 0).ToList<Reservation>();
         }
