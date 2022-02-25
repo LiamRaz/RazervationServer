@@ -223,6 +223,8 @@ namespace RazervationServerBL.Models
                             IsActive = true
                         };
                         this.Favorites.Add(newFavorite);
+                        this.Entry(newFavorite.Business).State = EntityState.Unchanged;
+                        this.Entry(newFavorite.Client).State = EntityState.Unchanged;
                         this.SaveChanges();
                     }
                     else
@@ -296,6 +298,8 @@ namespace RazervationServerBL.Models
                 };
 
                 this.Comments.Add(newComment);
+                this.Entry(newComment.Business).State = EntityState.Unchanged;
+                this.Entry(newComment.Client).State = EntityState.Unchanged;
                 this.SaveChanges();
                 return true;
             }
