@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
- 
+
 
 namespace RazervationServerBL.Models
 {
-    public partial class RazervationDBContext: DbContext
+    public partial class RazervationDBContext : DbContext
     {
 
         // Login!!
         public User Login(string emailOrUName, string pswd)//hi
         {
-            User user = this.Users.Where(u => (u.Email == emailOrUName || u.UserName == emailOrUName )&& u.UserPassword == pswd).FirstOrDefault();
-         
+            User user = this.Users.Where(u => (u.Email == emailOrUName || u.UserName == emailOrUName) && u.UserPassword == pswd).FirstOrDefault();
+
             return user;
         }
 
@@ -27,7 +27,7 @@ namespace RazervationServerBL.Models
         public bool ClientSignUp(Client c, User u)
         {
 
-            if(c != null && u != null)
+            if (c != null && u != null)
             {
                 u.UserType = true;//the user is a client
                 this.Clients.Add(c);
@@ -62,8 +62,8 @@ namespace RazervationServerBL.Models
         public bool CheckUniqueness(string email, string userName, string phoneNum)
         {
             User user = this.Users.Where(u => u.Email == email || u.UserName == userName || u.PhoneNumber == phoneNum).FirstOrDefault();
-            
-            if(user == null)//the email and the user name are unique
+
+            if (user == null)//the email and the user name are unique
             {
                 return true;
             }
@@ -80,13 +80,13 @@ namespace RazervationServerBL.Models
         public bool ChangeReservationStatus(Reservation reservation, int statusId)
         {
             Reservation chosenReservation = this.Reservations.Where(r => r.ReservationId == reservation.ReservationId).FirstOrDefault();
-            if(chosenReservation == null)
+            if (chosenReservation == null)
             {
                 return false;
             }
-            else 
+            else
             {
-                if(statusId == 2)
+                if (statusId == 2)
                 {
                     TimeSpan timeDifference = chosenReservation.StartDateTime - DateTime.Now;
                     if (timeDifference <= TimeSpan.FromHours(2))
@@ -94,10 +94,10 @@ namespace RazervationServerBL.Models
                         return false;
                     }
                 }
-                
+
 
                 chosenReservation.Status = this.ReserveStatuses.Where(s => s.StatusId == statusId).FirstOrDefault();
-                if(chosenReservation.Status == null)
+                if (chosenReservation.Status == null)
                 {
                     return false;
                 }
@@ -128,7 +128,7 @@ namespace RazervationServerBL.Models
 
 
             return businesses;
-            
+
         }
 
 
@@ -157,7 +157,7 @@ namespace RazervationServerBL.Models
 
         public bool UpdateClientDetails(string firstName, string lastName, string userName, string email, string password, string phoneNum, string gender, Client c, User u)
         {
-            
+
             Client currentClient = this.Clients.Where(cl => cl.ClientId == c.ClientId).FirstOrDefault();
             User currentUser = this.Users.Where(us => us.UserName == u.UserName).FirstOrDefault();
             if (currentClient != null && currentUser != null)
@@ -182,7 +182,7 @@ namespace RazervationServerBL.Models
         {
             int commentId = int.Parse(strCommentId);
             Comment toDelete = this.Comments.Where(c => c.AutoCommentId == commentId).FirstOrDefault();
-            if(toDelete != null)
+            if (toDelete != null)
             {
                 toDelete.IsActive = false;
                 this.SaveChanges();
@@ -233,12 +233,12 @@ namespace RazervationServerBL.Models
 
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
-           
-                
+
+
 
         }
 
@@ -285,7 +285,7 @@ namespace RazervationServerBL.Models
 
             Client client = this.Clients.Where(c => c.ClientId == clientId).FirstOrDefault();
             Business business = this.Businesses.Where(b => b.BusinessId == businessId).FirstOrDefault();
-            if(business != null && client != null)
+            if (business != null && client != null)
             {
                 Comment newComment = new Comment
                 {
@@ -319,7 +319,81 @@ namespace RazervationServerBL.Models
             int statusId = int.Parse(statusIdStr);
             DateTime date = DateTime.ParseExact(dateStr, "dd/MM/yyyy", null);
 
-            return this.Reservations.Where(r => r.BusinessId == businessId && r.StatusId == statusId && DateTime.Compare(r.StartDateTime.Date,date.Date) == 0).ToList<Reservation>();
+            return this.Reservations.Where(r => r.BusinessId == businessId && r.StatusId == statusId && DateTime.Compare(r.StartDateTime.Date, date.Date) == 0).ToList<Reservation>();
+        }
+
+        // get status
+
+        public ReserveStatus GetReserveStatus(string statusIdStr)
+        {
+            int statusId = int.Parse(statusIdStr);
+            ReserveStatus status = this.ReserveStatuses.Where(s => s.StatusId == statusId).FirstOrDefault();
+            return status;
+
+        }
+
+
+        // add reservation
+
+        public bool AddReservation(Reservation reservation)
+        {
+            //check if there is an empty slot for the reservation
+
+            int numberOfWorkers = reservation.Day.NumberOfWorkers;
+            SpecialNumberOfWorker specialNumberOfWorkers = reservation.Business.SpecialNumberOfWorkers.Where(s => s.SpecialDate.ToString("dd/MM/yyyy") == reservation.StartDateTime.ToString("dd/MM/yyyy")).FirstOrDefault();
+
+            if (specialNumberOfWorkers != null)
+            {
+                numberOfWorkers = specialNumberOfWorkers.NumWorkers;
+            }
+
+            List<Reservation> existedReservations = this.GetReservations(reservation.BusinessId.ToString(), "1", reservation.StartDateTime.ToString("dd/MM/yyyy"));
+
+            foreach (Reservation existedResrvation in existedReservations)
+            {
+
+                if ((DateTime.Compare(existedResrvation.StartDateTime, reservation.StartDateTime) >= 0 && DateTime.Compare(existedResrvation.StartDateTime, reservation.EndTime) < 0) || (DateTime.Compare(existedResrvation.EndTime, reservation.StartDateTime) > 0 && DateTime.Compare(existedResrvation.EndTime, reservation.EndTime) <= 0))
+                {
+                    numberOfWorkers--;
+                }
+
+            }
+
+            if (numberOfWorkers <= 0)
+                return false;
+
+            // check if the client already has a reservation for this time
+
+            List<Reservation> clientReservations = GetReservations(reservation.ClientId, reservation.StatusId, reservation.StartDateTime);
+
+            foreach (Reservation clientReservation in clientReservations)
+            {
+
+                if ((DateTime.Compare(clientReservation.StartDateTime, reservation.StartDateTime) >= 0 && DateTime.Compare(clientReservation.StartDateTime, reservation.EndTime) < 0) || (DateTime.Compare(clientReservation.EndTime, reservation.StartDateTime) > 0 && DateTime.Compare(clientReservation.EndTime, reservation.EndTime) <= 0))
+                {
+                    return false;
+                }
+
+            }
+
+
+            this.Reservations.Add(reservation);
+            this.Entry(reservation.Business).State = EntityState.Unchanged;
+            this.Entry(reservation.Client).State = EntityState.Unchanged;
+            this.Entry(reservation.Day).State = EntityState.Unchanged;
+            this.Entry(reservation.Status).State = EntityState.Unchanged;
+            this.Entry(reservation.Service).State = EntityState.Unchanged;
+            this.SaveChanges();
+
+            return true;
+
+        }
+
+        // a function that gets a client reservations for a specific date
+
+        public List<Reservation> GetReservations(int clientId, int statusId, DateTime date)
+        {
+            return this.Reservations.Where(r => r.ClientId == clientId && r.StatusId == statusId && DateTime.Compare(r.StartDateTime.Date, date.Date) == 0).ToList<Reservation>();
         }
 
 

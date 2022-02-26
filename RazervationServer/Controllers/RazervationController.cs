@@ -221,12 +221,12 @@ namespace RazervationServer.Controllers
         {
             bool isSuccess = context.ChangeReservationStatus(reservation, statusId);
 
-            if (isSuccess)//the reservation has been deleted
+            if (isSuccess)//the reservation has been changed
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return isSuccess;
             }
-            else//the reservation has not been deleted
+            else//the reservation has not been changed
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
                 return isSuccess;
@@ -279,12 +279,12 @@ namespace RazervationServer.Controllers
 
             bool isSuccess = context.UpdateClientDetails(firstName, lastName, userName, email, password, phoneNum, gender, currentMUser.Client , currentMUser.User);
 
-            if (isSuccess)//the reservation has been deleted
+            if (isSuccess)//the details have been updated
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return isSuccess;
             }
-            else//the reservation has not been deleted
+            else//the details have not been updated
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
                 return isSuccess;
@@ -325,12 +325,12 @@ namespace RazervationServer.Controllers
         {
             bool isSuccess = context.AddFavorite(clientId,businessId);
 
-            if (isSuccess)//the comment has been deleted
+            if (isSuccess)//the favorite has been added
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return isSuccess;
             }
-            else//the comment has not been deleted
+            else//the favorite has not been added
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
                 return isSuccess;
@@ -347,12 +347,12 @@ namespace RazervationServer.Controllers
         {
             bool isSuccess = context.DeleteFavorite(clientId, businessId);
 
-            if (isSuccess)//the comment has been deleted
+            if (isSuccess)//the favorite has been deleted
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return isSuccess;
             }
-            else//the comment has not been deleted
+            else//the favorite has not been deleted
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
                 return isSuccess;
@@ -368,12 +368,12 @@ namespace RazervationServer.Controllers
         {
             bool isSuccess = context.AddComment(comment.ClientId,comment.BusinessId,comment.Rating,comment.CommentText,comment.Cdate);
 
-            if (isSuccess)//the reservation has been deleted
+            if (isSuccess)//the comment has been added
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return isSuccess;
             }
-            else//the reservation has not been deleted
+            else//the comment has not been added
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
                 return isSuccess;
@@ -396,29 +396,43 @@ namespace RazervationServer.Controllers
         }
 
 
+        // get a reservation status that matches the inserted status id
 
-
-
-
-
-        // test func
-
-
-        [Route("Test")]
+        [Route("GetReserveStatus")]
         [HttpGet]
-        public string Test()
+        public ReserveStatus GetReserveStatus([FromQuery] string statusId)
         {
-            string str = context.Test();
 
-            if (str != null)
+           ReserveStatus status = context.GetReserveStatus(statusId);
+
+            Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            return status;
+
+        }
+
+
+        // a function that adds a new reservation
+
+        [Route("AddReservation")]
+        [HttpPost]
+        public bool AddReservation([FromBody] Reservation reservation)
+        {
+            bool isSuccess = context.AddReservation(reservation);
+
+            if (isSuccess)//the reservation has been added
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return str;
+                return isSuccess;
             }
-
-            Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-            return null;
+            else//the reservation has not been added
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
         }
+
+
+
 
     }
 }
