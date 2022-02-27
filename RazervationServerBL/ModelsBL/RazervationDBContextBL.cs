@@ -190,6 +190,7 @@ namespace RazervationServerBL.Models
             if (toDelete != null)
             {
                 toDelete.IsActive = false;
+                this.Comments.Update(toDelete);
                 this.SaveChanges();
                 return true;
             }
