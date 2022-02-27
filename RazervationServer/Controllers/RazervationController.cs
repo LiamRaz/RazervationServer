@@ -341,11 +341,11 @@ namespace RazervationServer.Controllers
 
 
         [Route("DeleteFavorite")]
-        [HttpGet]
+        [HttpPost]
 
-        public bool DeleteFavorite([FromQuery] string clientId, [FromQuery] string businessId)
+        public bool DeleteFavorite([FromBody] Favorite favorite)
         {
-            bool isSuccess = context.DeleteFavorite(clientId, businessId);
+            bool isSuccess = context.DeleteFavorite(favorite.ClientId, favorite.BusinessId);
 
             if (isSuccess)//the favorite has been deleted
             {

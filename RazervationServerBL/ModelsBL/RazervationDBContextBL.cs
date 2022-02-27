@@ -103,6 +103,8 @@ namespace RazervationServerBL.Models
                 }
                 else
                 {
+                    chosenReservation.StatusId = statusId;
+                    this.Reservations.Update(chosenReservation);
                     this.SaveChanges();
                     return true;
                 }
@@ -169,6 +171,9 @@ namespace RazervationServerBL.Models
                 currentUser.Email = email;
                 currentUser.UserPassword = password;
                 currentUser.PhoneNumber = phoneNum;
+                currentClient.UserNameNavigation = currentUser;
+                this.Clients.Update(currentClient);
+                this.Users.Update(currentUser);
                 this.SaveChanges();
                 return true;
             }
@@ -207,6 +212,7 @@ namespace RazervationServerBL.Models
                 if (existedFavorite != null)
                 {
                     existedFavorite.IsActive = true;
+                    this.Favorites.Update(existedFavorite);
                     this.SaveChanges();
                 }
                 else
@@ -245,17 +251,15 @@ namespace RazervationServerBL.Models
 
         // a function that deletes a favorite
 
-        public bool DeleteFavorite(string strClientId, string strBusinessId)
+        public bool DeleteFavorite(int clientId, int businessId)
         {
             try
             {
-                int clientId = int.Parse(strClientId);
-                int businessId = int.Parse(strBusinessId);
-
                 Favorite favoriteToDelete = this.Favorites.Where(f => f.ClientId == clientId && f.BusinessId == businessId).FirstOrDefault();
                 if (favoriteToDelete != null)
                 {
                     favoriteToDelete.IsActive = false;
+                    this.Favorites.Update(favoriteToDelete);
                     this.SaveChanges();
                     return true;
                 }
