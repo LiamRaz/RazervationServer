@@ -52,12 +52,14 @@ namespace RazervationServer.Controllers
                 {
                     Business business = context.Businesses.Where(b => b.UserName == user.UserName)
                         .Include(b => b.Category)
+                        .Include(b => b.UserNameNavigation)
                         .Include(b => b.BusinessDays)
-                        .Include(b => b.Comments)
+                        .Include(b => b.Comments).ThenInclude(b => b.Client)
                         .Include(b => b.Favorites)
                         .Include(b => b.Histories)
                         .Include(b => b.Reservations)
                         .Include(b => b.SpecialNumberOfWorkers)
+                        .Include(b => b.Bservices)
                         .FirstOrDefault();
 
                     mUser = new MainUserDTO { Business = business, Client = null, User = user };
