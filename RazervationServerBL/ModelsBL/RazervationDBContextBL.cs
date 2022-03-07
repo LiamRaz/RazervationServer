@@ -48,7 +48,7 @@ namespace RazervationServerBL.Models
                 u.UserType = false;//the user is a business
                                    //  this.Users.Update(u);
                 this.Businesses.Add(b);
-                this.Entry(b.Category).State = EntityState.Unchanged;
+                //this.Entry(b.Category).State = EntityState.Unchanged;
                 this.SaveChanges();
                 return true;
             }
@@ -229,7 +229,7 @@ namespace RazervationServerBL.Models
                             Client = chosenClient,
                             IsActive = true
                         };
-                        this.Favorites.Add(newFavorite);
+                        this.Entry(newFavorite).State = EntityState.Added;
                         //this.Entry(newFavorite.Business).State = EntityState.Unchanged;
                         //this.Entry(newFavorite.Client).State = EntityState.Unchanged;
                         this.SaveChanges();
@@ -302,9 +302,9 @@ namespace RazervationServerBL.Models
                     IsActive = true
                 };
 
-                this.Comments.Add(newComment);
-                this.Entry(newComment.Business).State = EntityState.Unchanged;
-                this.Entry(newComment.Client).State = EntityState.Unchanged;
+                this.Entry(newComment).State = EntityState.Added;
+                //this.Entry(newComment.Business).State = EntityState.Unchanged;
+                //this.Entry(newComment.Client).State = EntityState.Unchanged;
                 this.SaveChanges();
                 return true;
             }
@@ -382,12 +382,14 @@ namespace RazervationServerBL.Models
             }
 
 
-            this.Reservations.Add(reservation);
-            this.Entry(reservation.Business).State = EntityState.Unchanged;
-            this.Entry(reservation.Client).State = EntityState.Unchanged;
-            this.Entry(reservation.Day).State = EntityState.Unchanged;
-            this.Entry(reservation.Status).State = EntityState.Unchanged;
-            this.Entry(reservation.Service).State = EntityState.Unchanged;
+            //this.Reservations.Add(reservation);
+            this.Entry(reservation).State = EntityState.Added;
+
+            //this.Entry(reservation.Business).State = EntityState.Unchanged;
+            //this.Entry(reservation.Client).State = EntityState.Unchanged;
+            //this.Entry(reservation.Day).State = EntityState.Unchanged;
+            //this.Entry(reservation.Status).State = EntityState.Unchanged;
+            //this.Entry(reservation.Service).State = EntityState.Unchanged;
             this.SaveChanges();
 
             return true;
