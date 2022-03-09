@@ -403,6 +403,19 @@ namespace RazervationServerBL.Models
             return this.Reservations.Where(r => r.ClientId == clientId && r.StatusId == statusId && DateTime.Compare(r.StartDateTime.Date, date.Date) == 0).ToList<Reservation>();
         }
 
+        //a function that adds a service
+
+        public bool AddService(Bservice service)
+        {
+            if (service != null)
+            {
+                this.Bservices.Add(service);
+                this.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
 
 
         public string Test()

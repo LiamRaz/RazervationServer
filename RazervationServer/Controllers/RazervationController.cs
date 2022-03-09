@@ -433,7 +433,25 @@ namespace RazervationServer.Controllers
             }
         }
 
+        // a function that adds a service
 
+        [Route("AddService")]
+        [HttpPost]
+        public bool AddService([FromBody] Bservice service)
+        {
+            bool isSuccess = context.AddService(service);
+
+            if (isSuccess)//the reservation has been added
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the reservation has not been added
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
 
 
     }
