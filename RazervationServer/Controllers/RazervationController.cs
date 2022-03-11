@@ -454,5 +454,29 @@ namespace RazervationServer.Controllers
         }
 
 
+        // a function that deletes a service
+
+
+        [Route("DeleteFavorite")]
+        [HttpPost]
+
+        public bool DeleteService([FromBody] Bservice service)
+        {
+            bool isSuccess = context.DeleteService(service);
+
+            if (isSuccess)//the favorite has been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the favorite has not been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
+
+
+
     }
 }

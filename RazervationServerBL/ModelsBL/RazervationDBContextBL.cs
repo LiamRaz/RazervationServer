@@ -409,12 +409,42 @@ namespace RazervationServerBL.Models
         {
             if (service != null)
             {
-                this.Bservices.Add(service);
+                this.Entry(service).State = EntityState.Added;
                 this.SaveChanges();
                 return true;
             }
             return false;
         }
+
+
+        // a function that deletes a service
+
+        public bool DeleteService(Bservice service)
+        {
+            if (service != null)
+            {
+                Bservice toDelete = this.Bservices.Where(s => s.ServiceId == service.ServiceId).FirstOrDefault();
+                if(toDelete != null)
+                {
+                    toDelete.IsActive = false;
+                    this.Bservices.Update(toDelete);
+                    this.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+                
+        }
+
+
+
 
 
 

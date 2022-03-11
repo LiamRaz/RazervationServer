@@ -17,6 +17,7 @@ namespace RazervationServerBL.Models
         public int DurationMin { get; set; }
         public int Price { get; set; }
         public int BusinessId { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual Business Business { get; set; }
         public virtual ICollection<Reservation> Reservations { get; set; }

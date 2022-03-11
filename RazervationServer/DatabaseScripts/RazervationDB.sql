@@ -60,7 +60,8 @@ CREATE TABLE BServices(
     ServiceName nvarchar(255) NOT NULL,
     DurationMin INT NOT NULL,
     Price INT NOT NULL,
-    BusinessId INT NOT NULL
+    BusinessId INT NOT NULL,
+    IsActive BIT NOT NULL
 );
 
 
@@ -478,36 +479,42 @@ INSERT INTO [dbo].[BServices]
            ([ServiceName]
            ,[DurationMin]
            ,[Price]
-           ,[BusinessId])
+           ,[BusinessId]
+           ,[IsActive])
      VALUES
            ('Mans Cut'
            ,20
            ,10
-           ,10000)
+           ,10000,
+           1)
 GO
 
 INSERT INTO [dbo].[BServices]
            ([ServiceName]
            ,[DurationMin]
            ,[Price]
-           ,[BusinessId])
+           ,[BusinessId],
+           [IsActive])
      VALUES
            ('Private Lesson'
            ,60
            ,25
-           ,10001)
+           ,10001,
+           1)
 GO
 
 INSERT INTO [dbo].[BServices]
            ([ServiceName]
            ,[DurationMin]
            ,[Price]
-           ,[BusinessId])
+           ,[BusinessId],
+           [IsActive])
      VALUES
            ('Brain Check'
            ,30
            ,300
-           ,10002)
+           ,10002,
+           1)
 GO
 
 
