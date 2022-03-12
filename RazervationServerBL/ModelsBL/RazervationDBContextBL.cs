@@ -444,6 +444,46 @@ namespace RazervationServerBL.Models
         }
 
 
+        //a function that adds a Special number of workers
+
+        public bool AddSpecialNumberOfWorkers(SpecialNumberOfWorker specialNumberOfWorker)
+        {
+            if (specialNumberOfWorker != null)
+            {
+                this.Entry(specialNumberOfWorker).State = EntityState.Added;
+                this.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public int GetNumberOfWorkers(string dateStr, string businessIdStr)
+        {
+            int numberOfWorkers = -1;
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MM/yyyy", null);
+            int businessId = int.Parse(businessIdStr);
+
+            int dayNum = ((int)date.DayOfWeek) + 1;
+            BusinessDay chosenBusinessDay = this.BusinessDays.Where(bd => (bd.DayNum == dayNum && bd.BusinessId == businessId)).FirstOrDefault();
+
+            if(chosenBusinessDay == null)
+            {
+                return numberOfWorkers;
+            }
+
+            numberOfWorkers = chosenBusinessDay.NumberOfWorkers;
+            SpecialNumberOfWorker specialNumberOfWorkers = this.SpecialNumberOfWorkers.Where(s => (s.SpecialDate.Date == date.Date && s.BusinessId == businessId)).FirstOrDefault();
+
+            if (specialNumberOfWorkers != null)
+            {
+                numberOfWorkers = specialNumberOfWorkers.NumWorkers;
+            }
+
+            return numberOfWorkers;
+
+
+
+        }
 
 
 

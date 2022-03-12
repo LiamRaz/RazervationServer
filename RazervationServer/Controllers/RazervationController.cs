@@ -457,7 +457,7 @@ namespace RazervationServer.Controllers
         // a function that deletes a service
 
 
-        [Route("DeleteFavorite")]
+        [Route("DeleteService")]
         [HttpPost]
 
         public bool DeleteService([FromBody] Bservice service)
@@ -474,6 +474,40 @@ namespace RazervationServer.Controllers
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
                 return isSuccess;
             }
+        }
+
+        // a function that adds a special number of workers
+
+        [Route("AddSpecialNumberOfWorkers")]
+        [HttpPost]
+        public bool AddSpecialNumberOfWorkers([FromBody] SpecialNumberOfWorker specialNumberOfWorker)
+        {
+            bool isSuccess = context.AddSpecialNumberOfWorkers(specialNumberOfWorker);
+
+            if (isSuccess)//the reservation has been added
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the reservation has not been added
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
+
+        // get a reservation status that matches the inserted status id
+
+        [Route("GetNumberOfWorkers")]
+        [HttpGet]
+        public int GetNumberOfWorkers([FromQuery] string date, [FromQuery] string businessId)
+        {
+
+            int numberOfWorkers = context.GetNumberOfWorkers(date, businessId);
+
+            Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            return numberOfWorkers;
+
         }
 
 
