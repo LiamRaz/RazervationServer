@@ -494,8 +494,11 @@ namespace RazervationServerBL.Models
             foreach (BusinessDay businessDay in businessDays)
             {
                 BusinessDay toUpdate = this.BusinessDays.Where(bd => bd.DayId == businessDay.DayId).FirstOrDefault();
-                toUpdate = businessDay;
-                this.BusinessDays.Update(businessDay);
+                toUpdate.StartTime = businessDay.StartTime;
+                toUpdate.EndTime = businessDay.EndTime;
+                toUpdate.NumberOfWorkers = businessDay.NumberOfWorkers;
+                //this.BusinessDays.Update(businessDay);
+                this.Entry(toUpdate).State = EntityState.Modified;
             }
 
             this.SaveChanges();
