@@ -510,6 +510,26 @@ namespace RazervationServer.Controllers
 
         }
 
+        // update schedule
+
+        [Route("UpdateBusinessDays")]
+        [HttpPost]
+        public bool UpdateBusinessDays([FromBody] List<BusinessDay> businessDays)
+        {
+            bool isSuccess = context.UpdateBusinessDays(businessDays);
+
+            if (isSuccess)//the reservation has been added
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the reservation has not been added
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
+
 
 
     }

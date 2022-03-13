@@ -486,6 +486,22 @@ namespace RazervationServerBL.Models
         }
 
 
+        public bool UpdateBusinessDays(List<BusinessDay> businessDays)
+        {
+            if (businessDays == null)
+                return false;
+
+            foreach (BusinessDay businessDay in businessDays)
+            {
+                BusinessDay toUpdate = this.BusinessDays.Where(bd => bd.DayId == businessDay.DayId).FirstOrDefault();
+                toUpdate = businessDay;
+                this.BusinessDays.Update(businessDay);
+            }
+
+            this.SaveChanges();
+            return true;
+
+        }
 
 
         public string Test()
