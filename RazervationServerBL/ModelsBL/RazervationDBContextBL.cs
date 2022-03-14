@@ -161,7 +161,7 @@ namespace RazervationServerBL.Models
         {
 
             Client currentClient = this.Clients.Where(cl => cl.ClientId == c.ClientId).FirstOrDefault();
-            User currentUser = this.Users.Where(us => us.UserName == u.UserName).FirstOrDefault();
+            User currentUser = this.Users.Where(us => us.UserName == currentClient.UserName).FirstOrDefault();
             if (currentClient != null && currentUser != null)
             {
                 currentClient.FirstName = firstName;
@@ -171,9 +171,11 @@ namespace RazervationServerBL.Models
                 currentUser.Email = email;
                 currentUser.UserPassword = password;
                 currentUser.PhoneNumber = phoneNum;
-                currentClient.UserNameNavigation = currentUser;
-                this.Clients.Update(currentClient);
-                this.Users.Update(currentUser);
+                //currentUser.UserName = u.UserName;
+                //this.Clients.Update(currentClient);
+                //this.Users.Update(currentUser);
+                this.Entry(currentClient).State = EntityState.Modified;
+                this.Entry(currentUser).State = EntityState.Modified;
                 this.SaveChanges();
                 return true;
             }

@@ -41,6 +41,7 @@ namespace RazervationServer.Controllers
                         .Include(cl => cl.Favorites).ThenInclude(cl => cl.Business).ThenInclude(cl=>cl.Category)
                         .Include(cl => cl.Favorites).ThenInclude(cl => cl.Business).ThenInclude(cl =>cl.UserNameNavigation)
                         .Include(cl => cl.Histories).ThenInclude(cl => cl.Business).ThenInclude(cl => cl.Category)
+                        .Include(cl => cl.Histories).ThenInclude(cl => cl.Business).ThenInclude(cl => cl.UserNameNavigation)
                         .Include(cl => cl.Comments).ThenInclude(cl => cl.Business).ThenInclude(cl => cl.Category)
                         .Include(cl => cl.Reservations).ThenInclude(cl => cl.Business).ThenInclude(cl => cl.Category)
                         .Include(cl => cl.Reservations).ThenInclude(cl => cl.Service)
@@ -271,15 +272,12 @@ namespace RazervationServer.Controllers
         // The Update Details For Client Function
 
         [Route("UpdateClientDetails")]
-        [HttpGet]
+        [HttpPost]
 
-        public bool UpdateClientDetails([FromQuery] string firstName, [FromQuery] string lastName, [FromQuery] string userName, [FromQuery] string email,
-            [FromQuery] string password, [FromQuery] string phoneNum, [FromQuery] string gender)
+        public bool UpdateClientDetails([FromBody] MainUserDTO mUser)
         {
 
-            MainUserDTO currentMUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
-
-            bool isSuccess = context.UpdateClientDetails(firstName, lastName, userName, email, password, phoneNum, gender, currentMUser.Client , currentMUser.User);
+            bool isSuccess = context.UpdateClientDetails(mUser.Client.FirstName, mUser.Client.LastName, mUser.Client.UserName, mUser.User.Email, mUser.User.UserPassword, mUser.User.PhoneNumber, mUser.Client.Gender, mUser.Client, mUser.User);
 
             if (isSuccess)//the details have been updated
             {
