@@ -529,6 +529,32 @@ namespace RazervationServer.Controllers
         }
 
 
+        // The Update Details For Business Function
+
+        [Route("UpdateBusinessDetails")]
+        [HttpPost]
+
+        public bool UpdateBusinessDetails([FromBody] MainUserDTO mUser)
+        {
+
+            bool isSuccess = context.UpdateBusinessDetails(mUser.Business, mUser.User);
+
+            if (isSuccess)//the details have been updated
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the details have not been updated
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
+
+
+
+
+
 
     }
 }

@@ -509,6 +509,43 @@ namespace RazervationServerBL.Models
         }
 
 
+        // Update Details For Business
+
+        public bool UpdateBusinessDetails(Business b, User u)
+        {
+
+            Business currentBusiness = this.Businesses.Where(business => business.BusinessId == b.BusinessId).FirstOrDefault(); 
+            User currentUser = this.Users.Where(us => us.UserName == currentBusiness.UserName).FirstOrDefault();
+            Category chosenCategory = this.Categories.Where(c => c.CategoryId == b.CategoryId).FirstOrDefault();
+            if (currentBusiness != null && currentUser != null)
+            {
+                currentBusiness.Bio = b.Bio;
+                currentBusiness.BusinessAddress = b.BusinessAddress;
+                currentBusiness.BusinessName = b.BusinessName;
+                currentBusiness.Category = chosenCategory;
+                currentBusiness.FacebookUrl = b.FacebookUrl;
+                currentBusiness.InstagramUrl = b.InstagramUrl;
+                currentBusiness.InternetUrl = b.InternetUrl;
+
+                currentUser.Email = u.Email;
+                currentUser.UserPassword = u.UserPassword;
+                currentUser.PhoneNumber = u.PhoneNumber;
+                
+
+                this.Entry(chosenCategory).State = EntityState.Unchanged;
+                this.Entry(currentBusiness).State = EntityState.Modified;
+                this.Entry(currentUser).State = EntityState.Modified;
+                this.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+
+
+
+
+
         public string Test()
         {
             return "test";
