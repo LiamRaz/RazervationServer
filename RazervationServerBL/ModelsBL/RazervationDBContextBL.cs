@@ -541,7 +541,26 @@ namespace RazervationServerBL.Models
         }
 
 
+        //a function that adds a history
 
+        public bool AddHistory(History history)
+        {
+            if (history != null)
+            {
+                History existsHistory = this.Histories.Where(h => (h.ClientId == history.Client.ClientId && h.BusinessId == history.Business.BusinessId && h.IsActive)).FirstOrDefault();
+
+                if(existsHistory != null)
+                {
+                    existsHistory.IsActive = false;
+                    this.Entry(existsHistory).State = EntityState.Modified;
+                }
+
+                this.Entry(history).State = EntityState.Added;
+                this.SaveChanges();
+                return true;
+            }
+            return false;
+        }
 
 
 

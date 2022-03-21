@@ -552,6 +552,25 @@ namespace RazervationServer.Controllers
         }
 
 
+        // a function that adds a history
+
+        [Route("AddHistory")]
+        [HttpPost]
+        public bool AddHistory([FromBody] History history)
+        {
+            bool isSuccess = context.AddHistory(history);
+
+            if (isSuccess)//the reservation has been added
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the reservation has not been added
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
 
 
 
