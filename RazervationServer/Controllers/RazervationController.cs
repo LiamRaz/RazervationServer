@@ -296,11 +296,11 @@ namespace RazervationServer.Controllers
 
 
         [Route("DeleteComment")]
-        [HttpGet]
+        [HttpPost]
 
-        public bool DeleteComment([FromQuery] string commentId)
+        public bool DeleteComment([FromBody] Comment comment)
         {
-            bool isSuccess = context.DeleteComment(commentId);
+            bool isSuccess = context.DeleteComment(comment.AutoCommentId);
 
             if (isSuccess)//the comment has been deleted
             {
@@ -319,11 +319,11 @@ namespace RazervationServer.Controllers
 
 
         [Route("AddFavorite")]
-        [HttpGet]
+        [HttpPost]
 
-        public bool AddFavorite([FromQuery] string clientId, [FromQuery] string businessId)
+        public bool AddFavorite([FromBody] Favorite favorite)
         {
-            bool isSuccess = context.AddFavorite(clientId,businessId);
+            bool isSuccess = context.AddFavorite(favorite.ClientId,favorite.BusinessId);
 
             if (isSuccess)//the favorite has been added
             {

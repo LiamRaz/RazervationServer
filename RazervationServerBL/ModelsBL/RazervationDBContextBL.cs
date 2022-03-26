@@ -185,14 +185,14 @@ namespace RazervationServerBL.Models
 
         // The Function That Deletes A Comment
 
-        public bool DeleteComment(string strCommentId)
+        public bool DeleteComment(int commentId)
         {
-            int commentId = int.Parse(strCommentId);
             Comment toDelete = this.Comments.Where(c => c.AutoCommentId == commentId).FirstOrDefault();
             if (toDelete != null)
             {
                 toDelete.IsActive = false;
-                this.Comments.Update(toDelete);
+                //this.Comments.Update(toDelete);
+                this.Entry(toDelete).State = EntityState.Modified;
                 this.SaveChanges();
                 return true;
             }
@@ -204,13 +204,10 @@ namespace RazervationServerBL.Models
 
         // a function that creates a new favorite or activates one
 
-        public bool AddFavorite(string strClientId, string strBusinessId)
+        public bool AddFavorite(int clientId, int businessId)
         {
             try
             {
-                int clientId = int.Parse(strClientId);
-                int businessId = int.Parse(strBusinessId);
-
                 Favorite existedFavorite = this.Favorites.Where(f => f.ClientId == clientId && f.BusinessId == businessId).FirstOrDefault();
                 if (existedFavorite != null)
                 {
