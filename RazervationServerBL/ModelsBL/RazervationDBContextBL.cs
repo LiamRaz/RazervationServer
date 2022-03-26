@@ -351,7 +351,7 @@ namespace RazervationServerBL.Models
                 numberOfWorkers = specialNumberOfWorkers.NumWorkers;
             }
 
-            List<Reservation> existedReservations = this.GetReservations(reservation.BusinessId.ToString(), "1", reservation.StartDateTime.ToString("dd/MM/yyyy"));
+            List<Reservation> existedReservations = this.GetReservations(reservation.Business.BusinessId.ToString(), "1", reservation.StartDateTime.ToString("dd/MM/yyyy"));
 
             foreach (Reservation existedResrvation in existedReservations)
             {
@@ -368,7 +368,7 @@ namespace RazervationServerBL.Models
 
             // check if the client already has a reservation for this time
 
-            List<Reservation> clientReservations = GetReservations(reservation.ClientId, reservation.StatusId, reservation.StartDateTime);
+            List<Reservation> clientReservations = GetReservations(reservation.Client.ClientId, reservation.Status.StatusId, reservation.StartDateTime);
 
             foreach (Reservation clientReservation in clientReservations)
             {
