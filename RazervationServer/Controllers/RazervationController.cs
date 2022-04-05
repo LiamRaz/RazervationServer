@@ -395,6 +395,19 @@ namespace RazervationServer.Controllers
 
         }
 
+        [Route("GetAllBusinessReservations")]
+        [HttpGet]
+
+        public List<Reservation> GetAllBusinessReservations([FromQuery] string businessId, [FromQuery] string date)
+        {
+
+            List<Reservation> reservations = context.GetReservations(businessId, date);
+
+            Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            return reservations;
+
+        }
+
 
         // get a reservation status that matches the inserted status id
 
@@ -572,7 +585,25 @@ namespace RazervationServer.Controllers
             }
         }
 
+        //delete the reservations
 
+        [Route("ChangeReservationsStatus")]
+        [HttpPost]
+        public bool ChangeReservationsStatus([FromBody] List<Reservation> reservations, [FromQuery] int statusId)
+        {
+            bool isSuccess = context.ChangeReservationsStatus(reservations, statusId);
+
+            if (isSuccess)//the favorite has been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isSuccess;
+            }
+            else//the favorite has not been deleted
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                return isSuccess;
+            }
+        }
 
 
     }

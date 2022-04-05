@@ -46,7 +46,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<Bservice>(entity =>
             {
                 entity.HasKey(e => e.ServiceId)
-                    .HasName("PK__BService__C51BB00AFD1B9CF9");
+                    .HasName("PK__BService__C51BB00A20F0F092");
 
                 entity.ToTable("BServices");
 
@@ -96,7 +96,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<BusinessDay>(entity =>
             {
                 entity.HasKey(e => e.DayId)
-                    .HasName("PK__Business__BF3DD8C5BE9F5FAA");
+                    .HasName("PK__Business__BF3DD8C56285DFAF");
 
                 entity.Property(e => e.EndTime).HasColumnType("datetime");
 
@@ -152,7 +152,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.HasKey(e => e.AutoCommentId)
-                    .HasName("PK__Comments__44A0477E1772D557");
+                    .HasName("PK__Comments__44A0477E830150AF");
 
                 entity.Property(e => e.Cdate)
                     .HasColumnType("datetime")
@@ -211,6 +211,8 @@ namespace RazervationServerBL.Models
             {
                 entity.ToTable("Reservation");
 
+                entity.Property(e => e.DateOfCreation).HasColumnType("datetime");
+
                 entity.Property(e => e.EndTime).HasColumnType("datetime");
 
                 entity.Property(e => e.StartDateTime).HasColumnType("datetime");
@@ -249,7 +251,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<ReserveStatus>(entity =>
             {
                 entity.HasKey(e => e.StatusId)
-                    .HasName("PK__ReserveS__C8EE206382874967");
+                    .HasName("PK__ReserveS__C8EE2063B104266A");
 
                 entity.ToTable("ReserveStatus");
 
@@ -261,7 +263,7 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<SpecialNumberOfWorker>(entity =>
             {
                 entity.HasKey(e => e.SpecialDate)
-                    .HasName("PK__SpecialN__754CBCC4316F884B");
+                    .HasName("PK__SpecialN__754CBCC4E96E1FED");
 
                 entity.Property(e => e.SpecialDate).HasColumnType("datetime");
 
@@ -275,12 +277,12 @@ namespace RazervationServerBL.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.UserName)
-                    .HasName("PK__Users__C9F284576B5EBADC");
+                    .HasName("PK__Users__C9F284577A3F840D");
 
-                entity.HasIndex(e => e.PhoneNumber, "UQ__Users__85FB4E38E0AAAB22")
+                entity.HasIndex(e => e.PhoneNumber, "UQ__Users__85FB4E3889039A02")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__Users__A9D10534F2373406")
+                entity.HasIndex(e => e.Email, "UQ__Users__A9D10534E00F124F")
                     .IsUnique();
 
                 entity.Property(e => e.UserName).HasMaxLength(255);

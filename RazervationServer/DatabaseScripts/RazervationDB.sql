@@ -44,7 +44,8 @@ CREATE TABLE Reservation(
     ServiceId INT NOT NULL,
     ReservationId INT IDENTITY(1000000,1) PRIMARY KEY NOT NULL,
     DayId INT NOT NULL,
-	StatusId INT NOT NULL
+	StatusId INT NOT NULL,
+    DateOfCreation DATETIME NOT NULL
 );
 
 
@@ -465,12 +466,6 @@ GO
 INSERT INTO [dbo].[ReserveStatus]
            ([StatusName])
      VALUES
-           ('Deleted by business to all')
-GO
-
-INSERT INTO [dbo].[ReserveStatus]
-           ([StatusName])
-     VALUES
            ('Completed')
 GO
 
@@ -821,7 +816,8 @@ INSERT INTO [dbo].[Reservation]
            ,[ClientId]
            ,[ServiceId]
            ,[DayId]
-           ,[StatusId])
+           ,[StatusId],
+           [DateOfCreation])
      VALUES
            ('20221205 10:35:00 AM'
            ,'20221205 10:55:00 AM'
@@ -829,7 +825,8 @@ INSERT INTO [dbo].[Reservation]
            ,100000
            ,100000
            ,100000
-           ,1)
+           ,1
+           ,'20220405 10:55:00 AM')
 GO
 
 INSERT INTO [dbo].[Reservation]
@@ -839,15 +836,17 @@ INSERT INTO [dbo].[Reservation]
            ,[ClientId]
            ,[ServiceId]
            ,[DayId]
-           ,[StatusId])
+           ,[StatusId],
+           [DateOfCreation])
      VALUES
            ('20221206 10:35:00 AM'
            ,'20221206 10:55:00 AM'
            ,10000
            ,100000
            ,100000
-           ,100001
-           ,1)
+           ,100000
+           ,1
+           ,'20220405 10:55:00 AM')
 GO
 
 INSERT INTO [dbo].[Reservation]
@@ -857,15 +856,17 @@ INSERT INTO [dbo].[Reservation]
            ,[ClientId]
            ,[ServiceId]
            ,[DayId]
-           ,[StatusId])
+           ,[StatusId],
+           [DateOfCreation])
      VALUES
            ('20221207 10:35:00 AM'
            ,'20221207 10:55:00 AM'
            ,10000
            ,100000
            ,100000
-           ,100002
-           ,1)
+           ,100000
+           ,1
+           ,'20220405 10:55:00 AM')
 GO
 
 INSERT INTO [dbo].[Reservation]
@@ -875,15 +876,17 @@ INSERT INTO [dbo].[Reservation]
            ,[ClientId]
            ,[ServiceId]
            ,[DayId]
-           ,[StatusId])
+           ,[StatusId],
+           [DateOfCreation])
      VALUES
            ('20221208 10:35:00 AM'
            ,'20221208 10:55:00 AM'
            ,10000
            ,100000
            ,100000
-           ,100003
-           ,1)
+           ,100000
+           ,1
+           ,'20220405 10:55:00 AM')
 GO
 
 INSERT INTO [dbo].[Reservation]
@@ -893,15 +896,17 @@ INSERT INTO [dbo].[Reservation]
            ,[ClientId]
            ,[ServiceId]
            ,[DayId]
-           ,[StatusId])
+           ,[StatusId],
+           [DateOfCreation])
      VALUES
            ('20221209 10:35:00 AM'
            ,'20221209 10:55:00 AM'
            ,10000
            ,100000
            ,100000
-           ,100004
-           ,1)
+           ,100000
+           ,1
+           ,'20220405 10:55:00 AM')
 GO
 
 

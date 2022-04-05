@@ -15,6 +15,7 @@ namespace RazervationServerBL.Models
         public int ReservationId { get; set; }
         public int DayId { get; set; }
         public int StatusId { get; set; }
+        public DateTime DateOfCreation { get; set; }
 
         public virtual Business Business { get; set; }
         public virtual Client Client { get; set; }

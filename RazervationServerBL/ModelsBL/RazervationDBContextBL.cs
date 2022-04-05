@@ -13,6 +13,11 @@ namespace RazervationServerBL.Models
     public partial class RazervationDBContext : DbContext
     {
 
+        private const int RESERVATION_STATUS_ACTIVE = 1;
+        private const int RESERVATION_STATUS_DELETED_BY_CLIENT = 2;
+        private const int RESERVATION_STATUS_DELETED_BY_BUSINESS = 3;
+        private const int RESERVATION_STATUS_COMPLETED = 4;
+
         // Login!!
         public User Login(string emailOrUName, string pswd)//hi
         {
@@ -326,6 +331,16 @@ namespace RazervationServerBL.Models
             return this.Reservations.Where(r => r.BusinessId == businessId && r.StatusId == statusId && DateTime.Compare(r.StartDateTime.Date, date.Date) == 0).ToList<Reservation>();
         }
 
+        // get all reservations
+
+        public List<Reservation> GetReservations(string businessIdStr, string dateStr)
+        {
+            int businessId = int.Parse(businessIdStr);
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MM/yyyy", null);
+
+            return this.Reservations.Where(r => r.BusinessId == businessId && DateTime.Compare(r.StartDateTime.Date, date.Date) == 0).ToList<Reservation>();
+        }
+
         // get status
 
         public ReserveStatus GetReserveStatus(string statusIdStr)
@@ -384,11 +399,6 @@ namespace RazervationServerBL.Models
             //this.Reservations.Add(reservation);
             this.Entry(reservation).State = EntityState.Added;
 
-            //this.Entry(reservation.Business).State = EntityState.Unchanged;
-            //this.Entry(reservation.Client).State = EntityState.Unchanged;
-            //this.Entry(reservation.Day).State = EntityState.Unchanged;
-            //this.Entry(reservation.Status).State = EntityState.Unchanged;
-            //this.Entry(reservation.Service).State = EntityState.Unchanged;
             this.SaveChanges();
 
             return true;
@@ -427,6 +437,13 @@ namespace RazervationServerBL.Models
                 {
                     toDelete.IsActive = false;
                     this.Bservices.Update(toDelete);
+                    List<Reservation> reservationsToDelete = this.Reservations.Where(r => r.ServiceId == toDelete.ServiceId).ToList();
+                    foreach (Reservation reservationToDelete in reservationsToDelete)
+                    {
+                        reservationToDelete.StatusId = RESERVATION_STATUS_DELETED_BY_BUSINESS;
+                        this.Entry(reservationToDelete).State = EntityState.Modified;
+                    }
+
                     this.SaveChanges();
                     return true;
                 }
@@ -557,6 +574,31 @@ namespace RazervationServerBL.Models
                 return true;
             }
             return false;
+        }
+
+
+        // delete the reservations
+
+        public bool ChangeReservationsStatus(List<Reservation> reservations, int statusId)
+        {
+            if(reservations != null)
+            {
+
+                foreach (Reservation reservation in reservations)
+                {
+                    Reservation reservationToChangeStat = this.Reservations.Where(r => r.ReservationId == reservation.ReservationId).FirstOrDefault();
+                    if(reservationToChangeStat != null)
+                    {
+                        reservationToChangeStat.StatusId = statusId;
+                        this.Entry(reservationToChangeStat).State = EntityState.Modified;
+                    }
+                }
+                this.SaveChanges();
+                return true;
+
+            }
+            return false;
+             
         }
 
 
