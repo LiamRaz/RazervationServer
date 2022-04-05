@@ -328,7 +328,10 @@ namespace RazervationServerBL.Models
             int statusId = int.Parse(statusIdStr);
             DateTime date = DateTime.ParseExact(dateStr, "dd/MM/yyyy", null);
 
-            return this.Reservations.Where(r => r.BusinessId == businessId && r.StatusId == statusId && DateTime.Compare(r.StartDateTime.Date, date.Date) == 0).ToList<Reservation>();
+            return this.Reservations.Where(r => r.BusinessId == businessId && r.StatusId == statusId && DateTime.Compare(r.StartDateTime.Date, date.Date) == 0)
+                .Include(r => r.Business).ThenInclude(b => b.UserNameNavigation)
+                .Include(r => r.Client).ThenInclude(c => c.UserNameNavigation)
+                .ToList<Reservation>();
         }
 
         // get all reservations
@@ -338,7 +341,10 @@ namespace RazervationServerBL.Models
             int businessId = int.Parse(businessIdStr);
             DateTime date = DateTime.ParseExact(dateStr, "dd/MM/yyyy", null);
 
-            return this.Reservations.Where(r => r.BusinessId == businessId && DateTime.Compare(r.StartDateTime.Date, date.Date) == 0).ToList<Reservation>();
+            return this.Reservations.Where(r => r.BusinessId == businessId && DateTime.Compare(r.StartDateTime.Date, date.Date) == 0)
+                .Include(r => r.Business).ThenInclude(b => b.UserNameNavigation)
+                .Include(r=>r.Client).ThenInclude(c => c.UserNameNavigation)
+                .ToList<Reservation>();
         }
 
         // get status
