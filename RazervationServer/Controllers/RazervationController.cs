@@ -605,6 +605,28 @@ namespace RazervationServer.Controllers
             }
         }
 
+        // a function that returns 1 if a future reservation exists (from now), 0 if there isnt a future reservation and -1 if something went wrong
+
+        [Route("IsThereFutureReservation")]
+        [HttpGet]
+        public int IsThereFutureReservation([FromQuery] int bServiceId)
+        {
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
+
+            if(loggedUser != null && loggedUser.Business != null)
+            {
+                int isExist = context.IsThereFutureReservation(bServiceId);
+
+                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                return isExist;
+            }
+            else
+            {
+                return -1;
+            }
+            
+        }
+
 
     }
 }

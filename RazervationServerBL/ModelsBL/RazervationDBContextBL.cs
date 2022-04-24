@@ -608,6 +608,19 @@ namespace RazervationServerBL.Models
         }
 
 
+        // a function that returns 1 if a future reservation exists (from now), 0 if there isnt a future reservation and -1 if something went wrong
+
+        public int IsThereFutureReservation(int bServiceId)
+        {
+            Reservation firstFutureReservation = this.Reservations.Where(r => r.ServiceId == bServiceId && DateTime.Compare(r.StartDateTime, DateTime.Now) > 0).FirstOrDefault();
+            if (firstFutureReservation == null)
+            {
+                return 0;
+            }
+            else
+                return 1;
+
+        }
 
         public string Test()
         {
