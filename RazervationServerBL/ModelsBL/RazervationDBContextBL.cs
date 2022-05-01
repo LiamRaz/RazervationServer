@@ -610,9 +610,9 @@ namespace RazervationServerBL.Models
 
         // a function that returns 1 if a future reservation exists (from now), 0 if there isnt a future reservation and -1 if something went wrong
 
-        public int IsThereFutureReservation(int bServiceId)
+        public int IsThereFutureReservationForTheService(int bServiceId)
         {
-            Reservation firstFutureReservation = this.Reservations.Where(r => r.ServiceId == bServiceId && DateTime.Compare(r.StartDateTime, DateTime.Now) > 0).FirstOrDefault();
+            Reservation firstFutureReservation = this.Reservations.Where(r => r.StatusId == RESERVATION_STATUS_ACTIVE && r.ServiceId == bServiceId && DateTime.Compare(r.StartDateTime, DateTime.Now) > 0).FirstOrDefault();
             if (firstFutureReservation == null)
             {
                 return 0;
@@ -622,9 +622,18 @@ namespace RazervationServerBL.Models
 
         }
 
-        public string Test()
+        // a function that returns 1 if a future reservation exists (from now), 0 if there isnt a future reservation and -1 if something went wrong
+
+        public int IsThereFutureReservation()
         {
-            return "test";
+            Reservation firstFutureReservation = this.Reservations.Where(r => r.StatusId == RESERVATION_STATUS_ACTIVE && DateTime.Compare(r.StartDateTime, DateTime.Now) > 0).FirstOrDefault();
+            if (firstFutureReservation == null)
+            {
+                return 0;
+            }
+            else
+                return 1;
+
         }
     }
 }
