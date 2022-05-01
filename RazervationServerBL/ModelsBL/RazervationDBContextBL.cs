@@ -334,6 +334,16 @@ namespace RazervationServerBL.Models
                 .ToList<Reservation>();
         }
 
+        public List<Reservation> GetReservations(int businessId, int serviceId, string dateStr)
+        {
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MM/yyyy", null);
+
+            return this.Reservations.Where(r => r.BusinessId == businessId && r.ServiceId == serviceId && DateTime.Compare(r.StartDateTime.Date, date.Date) == 0)
+                .Include(r => r.Business).ThenInclude(b => b.UserNameNavigation)
+                .Include(r => r.Client).ThenInclude(c => c.UserNameNavigation)
+                .ToList<Reservation>();
+        }
+
         // get all reservations
 
         public List<Reservation> GetReservations(string businessIdStr, string dateStr)
@@ -346,6 +356,8 @@ namespace RazervationServerBL.Models
                 .Include(r=>r.Client).ThenInclude(c => c.UserNameNavigation)
                 .ToList<Reservation>();
         }
+
+
 
         // get status
 
@@ -417,6 +429,7 @@ namespace RazervationServerBL.Models
         {
             return this.Reservations.Where(r => r.ClientId == clientId && r.StatusId == statusId && DateTime.Compare(r.StartDateTime.Date, date.Date) == 0).ToList<Reservation>();
         }
+
 
         //a function that adds a service
 

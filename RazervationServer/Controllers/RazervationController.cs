@@ -408,6 +408,19 @@ namespace RazervationServer.Controllers
 
         }
 
+        [Route("GetBusinessReservationsByService")]
+        [HttpGet]
+
+        public List<Reservation> GetBusinessReservationsByService([FromQuery] int businessId, [FromQuery] int serviceId, [FromQuery] string date)
+        {
+
+            List<Reservation> reservations = context.GetReservations(businessId, serviceId, date);
+
+            Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            return reservations;
+
+        }
+
 
         // get a reservation status that matches the inserted status id
 
