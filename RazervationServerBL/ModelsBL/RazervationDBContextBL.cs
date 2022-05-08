@@ -401,12 +401,12 @@ namespace RazervationServerBL.Models
 
             // check if the client already has a reservation for this time
 
-            List<Reservation> clientReservations = GetReservations(reservation.Client.ClientId, reservation.Status.StatusId, reservation.StartDateTime);
+            List<Reservation> clientReservations = GetReservations(reservation.Client.ClientId, RESERVATION_STATUS_ACTIVE, reservation.StartDateTime);
 
             foreach (Reservation clientReservation in clientReservations)
             {
 
-                if ((DateTime.Compare(clientReservation.StartDateTime, reservation.StartDateTime) >= 0 && DateTime.Compare(clientReservation.StartDateTime, reservation.EndTime) < 0) || (DateTime.Compare(clientReservation.EndTime, reservation.StartDateTime) > 0 && DateTime.Compare(clientReservation.EndTime, reservation.EndTime) <= 0))
+                if ((DateTime.Compare(reservation.StartDateTime, clientReservation.StartDateTime) >= 0 && DateTime.Compare(reservation.StartDateTime, clientReservation.EndTime) < 0) || (DateTime.Compare(reservation.EndTime, clientReservation.StartDateTime) > 0 && DateTime.Compare(reservation.EndTime, clientReservation.EndTime) <= 0))
                 {
                     return false;
                 }
