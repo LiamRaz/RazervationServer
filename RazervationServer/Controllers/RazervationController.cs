@@ -624,19 +624,19 @@ namespace RazervationServer.Controllers
         [HttpGet]
         public int IsThereFutureReservationForTheService([FromQuery] int bServiceId)
         {
-            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
+            //MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if(loggedUser != null && loggedUser.Business != null)
-            {
+            //if(loggedUser != null && loggedUser.Business != null)
+            //{
                 int isExist = context.IsThereFutureReservationForTheService(bServiceId);
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return isExist;
-            }
-            else
-            {
-                return -1;
-            }
+            //}
+            //else
+            //{
+            //    return -1;
+            //}
             
         }
 
@@ -645,23 +645,46 @@ namespace RazervationServer.Controllers
 
         [Route("IsThereFutureReservation")]
         [HttpGet]
-        public int IsThereFutureReservation()
+        public int IsThereFutureReservation([FromQuery] int businessId)
         {
-            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
+            //MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if (loggedUser != null && loggedUser.Business != null)
-            {
-                int isExist = context.IsThereFutureReservation();
+            //if (loggedUser != null && loggedUser.Business != null)
+            //{
+                int isExist = context.IsThereFutureReservation(businessId);
 
                 Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
                 return isExist;
-            }
-            else
-            {
-                return -1;
-            }
+            //}
+            //else
+            //{
+            //    return -1;
+            //}
 
         }
+
+
+        [Route("DoesReservationExist")]
+        [HttpGet]
+        public int DoesReservationExist([FromQuery] int businessId, [FromQuery] string date)
+        {
+            //MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
+
+            //if (loggedUser != null && loggedUser.Business != null)
+            //{
+            int isExist = context.DoesReservationExist(businessId, date);
+
+            Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            return isExist;
+            //}
+            //else
+            //{
+            //    return -1;
+            //}
+
+        }
+
+
 
     }
 }
