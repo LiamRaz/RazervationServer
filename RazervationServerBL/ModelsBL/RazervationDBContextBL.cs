@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
-
+using RazervationServerBL.Services;
 
 namespace RazervationServerBL.Models
 {
@@ -84,14 +83,18 @@ namespace RazervationServerBL.Models
 
         public bool ChangeReservationStatus(Reservation reservation, int statusId)
         {
-            Reservation chosenReservation = this.Reservations.Where(r => r.ReservationId == reservation.ReservationId).FirstOrDefault();
+            Reservation chosenReservation = this.Reservations.Where(r => r.ReservationId == reservation.ReservationId)
+                .Include(r => r.Business)
+                .Include(r => r.Client).ThenInclude(c => c.UserNameNavigation)
+                .Include(r => r.Service).FirstOrDefault();
+
             if (chosenReservation == null)
             {
                 return false;
             }
             else
             {
-                if (statusId == 2)
+                if (statusId == RESERVATION_STATUS_DELETED_BY_CLIENT)
                 {
                     TimeSpan timeDifference = chosenReservation.StartDateTime - DateTime.Now;
                     if (timeDifference <= TimeSpan.FromHours(2))
@@ -111,6 +114,15 @@ namespace RazervationServerBL.Models
                     chosenReservation.StatusId = statusId;
                     this.Reservations.Update(chosenReservation);
                     this.SaveChanges();
+
+                    if(statusId == RESERVATION_STATUS_DELETED_BY_BUSINESS && DateTime.Compare(chosenReservation.StartDateTime, DateTime.Now) > 0)
+                    {
+                        EmailSender.SendEmail("Cancellation Of Your Reservation", $"Hi {chosenReservation.Client.FirstName}, {chosenReservation.Business.BusinessName} has canceled your reservation to {chosenReservation.Service.ServiceName}" +
+                            $" on {chosenReservation.StartDateTime.ToString("dd/MM/yyyy")} from {chosenReservation.StartDateTime.ToString("HH/mm")} to {chosenReservation.EndTime.ToString("HH/mm")}." +
+                            $" Best regards, Razervation Corporation.", chosenReservation.Client.UserNameNavigation.Email, chosenReservation.Client.FirstName + " " + chosenReservation.Client.LastName
+                            , "razervation@gmail.com", "Razervation Corporation", "liamraz123", "smtp.gmail.com");
+                    }
+
                     return true;
                 }
             }
@@ -602,17 +614,39 @@ namespace RazervationServerBL.Models
         {
             if(reservations != null)
             {
+                List<Reservation> listToSendEmail = new List<Reservation>();
 
                 foreach (Reservation reservation in reservations)
                 {
-                    Reservation reservationToChangeStat = this.Reservations.Where(r => r.ReservationId == reservation.ReservationId).FirstOrDefault();
+                    Reservation reservationToChangeStat = this.Reservations.Where(r => r.ReservationId == reservation.ReservationId)
+                        .Include(r => r.Business)
+                        .Include(r => r.Client).ThenInclude(c => c.UserNameNavigation)
+                        .Include(r => r.Service).FirstOrDefault();
                     if(reservationToChangeStat != null)
                     {
                         reservationToChangeStat.StatusId = statusId;
                         this.Entry(reservationToChangeStat).State = EntityState.Modified;
+                        listToSendEmail.Add(reservationToChangeStat);
                     }
                 }
                 this.SaveChanges();
+
+                if(statusId == RESERVATION_STATUS_DELETED_BY_BUSINESS)
+                {
+                    foreach (Reservation toSendEmail in listToSendEmail)
+                    {
+                        if(DateTime.Compare(toSendEmail.StartDateTime, DateTime.Now) > 0)
+                        {
+                            EmailSender.SendEmail("Cancellation Of Your Reservation", $"Hi {toSendEmail.Client.FirstName}, {toSendEmail.Business.BusinessName} has canceled your reservation to {toSendEmail.Service.ServiceName}" +
+                                                     $" on {toSendEmail.StartDateTime.ToString("dd/MM/yyyy")} from {toSendEmail.StartDateTime.ToString("HH/mm")}" +
+                                                     $" to {toSendEmail.EndTime.ToString("HH/mm")}. Best regards, Razervation Corporation."
+                                                     , toSendEmail.Client.UserNameNavigation.Email, toSendEmail.Client.FirstName + " " + toSendEmail.Client.LastName
+                                                     , "razervation@gmail.com", "Razervation Corporation", "liamraz123", "smtp.gmail.com");
+                        }
+
+                    }
+                }
+
                 return true;
 
             }
