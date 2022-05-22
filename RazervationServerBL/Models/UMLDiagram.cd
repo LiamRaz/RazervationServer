@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RazervationServerBL.Models.Bservice">
+    <Position X="7.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAACAAAUAAAAAAEAAABAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Models\Bservice.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Business" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Reservations" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="RazervationServerBL.Models.Business">
+    <Position X="10.5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAAABAAACAAgZAGAAAEAEAABAAAAAAAQCAAAgAKAA=</HashCode>
+      <FileName>Models\Business.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Category" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Favorites" />
+      <Property Name="Histories" />
+      <Property Name="BusinessDays" />
+      <Property Name="Bservices" />
+      <Property Name="Comments" />
+      <Property Name="Reservations" />
+      <Property Name="SpecialNumberOfWorkers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="RazervationServerBL.Models.BusinessDay">
+    <Position X="7" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QAgAAAAAAEAAAAAAEAAAAAAAIAAwAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Models\BusinessDay.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Business" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Reservations" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="RazervationServerBL.Models.History">
+    <Position X="14" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCAEAAAAAEAAAAAAkAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Models\History.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Business" />
+      <Property Name="Client" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RazervationServerBL.Models.Favorite">
+    <Position X="14" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAEAgAAAAkAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Models\Favorite.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Business" />
+      <Property Name="Client" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RazervationServerBL.Models.Category">
+    <Position X="11.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAABgAAAAAAAAAAACAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Category.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Businesses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="RazervationServerBL.Models.Comment">
+    <Position X="17.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAABEAAAABAkAAAAAAAAAAAAAEAAAAAAEAAAAQ=</HashCode>
+      <FileName>Models\Comment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Business" />
+      <Property Name="Client" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RazervationServerBL.Models.Reservation">
+    <Position X="3.75" Y="5" Width="1.5" />
+    <AssociationLine Name="Client" Type="RazervationServerBL.Models.Client" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4" Y="7.642" />
+        <Point X="4" Y="12.045" />
+        <Point X="22.75" Y="12.045" />
+        <Point X="22.75" Y="6.767" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QAAAACAMIEABEAAAgAAAAQAAAAAgQAAAAAAAAAABAAQ=</HashCode>
+      <FileName>Models\Reservation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Business" />
+      <Property Name="Day" />
+      <Property Name="Service" />
+      <Property Name="Status" />
+      <Property Name="Client" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RazervationServerBL.Models.ReserveStatus">
+    <Position X="1" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ReserveStatus.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Reservations" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="RazervationServerBL.Models.Client">
+    <Position X="21.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEBAAACAAACAkAAAAAAAAAAAAAAAAQCAAAAAIAg=</HashCode>
+      <FileName>Models\Client.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Comments" />
+      <Property Name="Favorites" />
+      <Property Name="Histories" />
+      <Property Name="Reservations" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="RazervationServerBL.Models.SpecialNumberOfWorker">
+    <Position X="9.5" Y="9.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAEBAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\SpecialNumberOfWorker.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Business" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
