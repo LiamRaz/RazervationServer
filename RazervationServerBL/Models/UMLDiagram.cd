@@ -1,7 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="RazervationServerBL.Models.Bservice">
-    <Position X="7.25" Y="4" Width="1.5" />
+    <Position X="5.75" Y="4.25" Width="1.5" />
+    <AssociationLine Name="Reservations" Type="RazervationServerBL.Models.Reservation" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.5" Y="4.25" />
+        <Point X="6.5" Y="1.125" />
+        <Point X="10.75" Y="1.125" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Business" Type="RazervationServerBL.Models.Business" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.5" Y="6.767" />
+        <Point X="6.5" Y="9" />
+        <Point X="10.5" Y="9" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>QAAAACAAAUAAAAAAEAAABAAAAAAAAAAAAAAAAAAABAA=</HashCode>
       <FileName>Models\Bservice.cs</FileName>
@@ -14,7 +28,37 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="RazervationServerBL.Models.Business">
-    <Position X="10.5" Y="4.5" Width="2" />
+    <Position X="10.5" Y="8.25" Width="2" />
+    <AssociationLine Name="Favorites" Type="RazervationServerBL.Models.Favorite" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.5" Y="9.893" />
+        <Point X="16.125" Y="9.893" />
+        <Point X="16.125" Y="12.5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Histories" Type="RazervationServerBL.Models.History" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.5" Y="10.5" />
+        <Point X="7.68" Y="10.5" />
+        <Point X="7.68" Y="12.5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Bservices" Type="RazervationServerBL.Models.Bservice" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.5" Y="8.688" />
+        <Point X="7.062" Y="8.688" />
+        <Point X="7.062" Y="6.767" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Reservations" Type="RazervationServerBL.Models.Reservation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.062" Y="8.25" />
+        <Point X="12.062" Y="7.247" />
+        <Point X="13.551" Y="7.247" />
+        <Point X="13.551" Y="3.062" />
+        <Point X="12.25" Y="3.062" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>QAAAAABAAACAAgZAGAAAEAEAABAAAAAAAQCAAAgAKAA=</HashCode>
       <FileName>Models\Business.cs</FileName>
@@ -33,7 +77,21 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="RazervationServerBL.Models.BusinessDay">
-    <Position X="7" Y="7.5" Width="1.75" />
+    <Position X="8" Y="5" Width="1.75" />
+    <AssociationLine Name="Reservations" Type="RazervationServerBL.Models.Reservation" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.875" Y="5" />
+        <Point X="8.875" Y="3" />
+        <Point X="10.75" Y="3" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Business" Type="RazervationServerBL.Models.Business" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.961" Y="7.517" />
+        <Point X="8.961" Y="8.438" />
+        <Point X="10.5" Y="8.438" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>QAgAAAAAAEAAAAAAEAAAAAAAIAAwAAAAAAAAAAABAAA=</HashCode>
       <FileName>Models\BusinessDay.cs</FileName>
@@ -46,7 +104,14 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="RazervationServerBL.Models.History">
-    <Position X="14" Y="3.75" Width="1.5" />
+    <Position X="7.25" Y="12.5" Width="1.5" />
+    <AssociationLine Name="Business" Type="RazervationServerBL.Models.Business" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.172" Y="12.5" />
+        <Point X="8.172" Y="11" />
+        <Point X="10.5" Y="11" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>QCAEAAAAAEAAAAAAkAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Models\History.cs</FileName>
@@ -57,7 +122,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="RazervationServerBL.Models.Favorite">
-    <Position X="14" Y="6.75" Width="1.5" />
+    <Position X="15.25" Y="12.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAEAgAAAAkAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Models\Favorite.cs</FileName>
@@ -68,7 +133,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="RazervationServerBL.Models.Category">
-    <Position X="11.75" Y="9" Width="1.5" />
+    <Position X="4.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAABgAAAAAAAAAAACAgAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Category.cs</FileName>
@@ -78,7 +143,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="RazervationServerBL.Models.Comment">
-    <Position X="17.5" Y="4.75" Width="1.5" />
+    <Position X="11" Y="12.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAAABEAAAABAkAAAAAAAAAAAAAEAAAAAAEAAAAQ=</HashCode>
       <FileName>Models\Comment.cs</FileName>
@@ -89,13 +154,38 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="RazervationServerBL.Models.Reservation">
-    <Position X="3.75" Y="5" Width="1.5" />
+    <Position X="10.75" Y="0.75" Width="1.5" />
+    <AssociationLine Name="Business" Type="RazervationServerBL.Models.Business" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.25" Y="2.763" />
+        <Point X="13.807" Y="2.763" />
+        <Point X="13.807" Y="7.875" />
+        <Point X="12.25" Y="7.875" />
+        <Point X="12.25" Y="8.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Service" Type="RazervationServerBL.Models.Bservice" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.75" Y="2.062" />
+        <Point X="7.625" Y="2.062" />
+        <Point X="7.625" Y="4.757" />
+        <Point X="7.25" Y="4.757" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Status" Type="RazervationServerBL.Models.ReserveStatus" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.125" Y="3.392" />
+        <Point X="12.125" Y="3.767" />
+        <Point X="12.75" Y="3.767" />
+        <Point X="12.75" Y="5.25" />
+      </Path>
+    </AssociationLine>
     <AssociationLine Name="Client" Type="RazervationServerBL.Models.Client" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="4" Y="7.642" />
-        <Point X="4" Y="12.045" />
-        <Point X="22.75" Y="12.045" />
-        <Point X="22.75" Y="6.767" />
+        <Point X="12.25" Y="2.125" />
+        <Point X="19.082" Y="2.125" />
+        <Point X="19.082" Y="17.312" />
+        <Point X="13" Y="17.312" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -111,7 +201,15 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="RazervationServerBL.Models.ReserveStatus">
-    <Position X="1" Y="6" Width="1.5" />
+    <Position X="11.75" Y="5.25" Width="1.5" />
+    <AssociationLine Name="Reservations" Type="RazervationServerBL.Models.Reservation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.875" Y="5.25" />
+        <Point X="11.875" Y="4.321" />
+        <Point X="11.875" Y="4.321" />
+        <Point X="11.875" Y="3.392" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAIAAAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\ReserveStatus.cs</FileName>
@@ -121,7 +219,15 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="RazervationServerBL.Models.Client">
-    <Position X="21.5" Y="4.25" Width="1.5" />
+    <Position X="11.5" Y="15.5" Width="1.5" />
+    <AssociationLine Name="Reservations" Type="RazervationServerBL.Models.Reservation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13" Y="17.625" />
+        <Point X="19.769" Y="17.625" />
+        <Point X="19.769" Y="1.375" />
+        <Point X="12.25" Y="1.375" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAEBAAACAAACAkAAAAAAAAAAAAAAAAQCAAAAAIAg=</HashCode>
       <FileName>Models\Client.cs</FileName>
@@ -134,7 +240,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="RazervationServerBL.Models.SpecialNumberOfWorker">
-    <Position X="9.5" Y="9.5" Width="2" />
+    <Position X="15.25" Y="8" Width="2" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAEBAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>Models\SpecialNumberOfWorker.cs</FileName>
