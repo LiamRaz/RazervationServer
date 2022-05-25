@@ -87,6 +87,20 @@ namespace RazervationServer.Controllers
         }
 
 
+        [Route("Logout")]
+        [HttpGet]
+        public bool Logout()
+        {
+
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
+            if(loggedUser != null)
+            {
+                HttpContext.Session.SetObject("theUser", null);
+            }
+
+            Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            return true;
+        }
 
         // Sign Up for Client!!!
 
