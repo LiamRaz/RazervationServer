@@ -236,18 +236,30 @@ namespace RazervationServer.Controllers
         [HttpPost]
         public bool ChangeReservationStatus([FromBody] Reservation reservation, [FromQuery] int statusId)
         {
-            bool isSuccess = context.ChangeReservationStatus(reservation, statusId);
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if (isSuccess)//the reservation has been changed
+            if (loggedUser != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.ChangeReservationStatus(reservation, statusId);
+
+                if (isSuccess)//the reservation has been changed
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the reservation has not been changed
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the reservation has not been changed
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+
+         
         }
 
 
@@ -290,19 +302,30 @@ namespace RazervationServer.Controllers
 
         public bool UpdateClientDetails([FromBody] MainUserDTO mUser)
         {
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            bool isSuccess = context.UpdateClientDetails(mUser.Client.FirstName, mUser.Client.LastName, mUser.Client.UserName, mUser.User.Email, mUser.User.UserPassword, mUser.User.PhoneNumber, mUser.Client.Gender, mUser.Client, mUser.User);
-
-            if (isSuccess)//the details have been updated
+            if (loggedUser != null && loggedUser.Client != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.UpdateClientDetails(mUser.Client.FirstName, mUser.Client.LastName, mUser.Client.UserName, mUser.User.Email, mUser.User.UserPassword, mUser.User.PhoneNumber, mUser.Client.Gender, mUser.Client, mUser.User);
+
+                if (isSuccess)//the details have been updated
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the details have not been updated
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the details have not been updated
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+
+           
         }
 
 
@@ -314,18 +337,30 @@ namespace RazervationServer.Controllers
 
         public bool DeleteComment([FromBody] Comment comment)
         {
-            bool isSuccess = context.DeleteComment(comment.AutoCommentId);
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if (isSuccess)//the comment has been deleted
+            if (loggedUser != null && loggedUser.Client != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.DeleteComment(comment.AutoCommentId);
+
+                if (isSuccess)//the comment has been deleted
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the comment has not been deleted
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the comment has not been deleted
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+
+            
         }
 
 
@@ -337,18 +372,30 @@ namespace RazervationServer.Controllers
 
         public bool AddFavorite([FromBody] Favorite favorite)
         {
-            bool isSuccess = context.AddFavorite(favorite.ClientId,favorite.BusinessId);
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if (isSuccess)//the favorite has been added
+            if (loggedUser != null && loggedUser.Client != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.AddFavorite(favorite.ClientId, favorite.BusinessId);
+
+                if (isSuccess)//the favorite has been added
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the favorite has not been added
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the favorite has not been added
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+
+          
         }
 
         // a function that deletes a favorite
@@ -359,18 +406,30 @@ namespace RazervationServer.Controllers
 
         public bool DeleteFavorite([FromBody] Favorite favorite)
         {
-            bool isSuccess = context.DeleteFavorite(favorite.ClientId, favorite.BusinessId);
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if (isSuccess)//the favorite has been deleted
+            if (loggedUser != null && loggedUser.Client != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.DeleteFavorite(favorite.ClientId, favorite.BusinessId);
+
+                if (isSuccess)//the favorite has been deleted
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the favorite has not been deleted
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the favorite has not been deleted
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+
+            
         }
 
 
@@ -380,18 +439,31 @@ namespace RazervationServer.Controllers
         [HttpPost]
         public bool AddComment([FromBody] CommentDTO comment)
         {
-            bool isSuccess = context.AddComment(comment.ClientId,comment.BusinessId,comment.Rating,comment.CommentText,comment.Cdate);
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if (isSuccess)//the comment has been added
+            if (loggedUser != null && loggedUser.Client != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.AddComment(comment.ClientId, comment.BusinessId, comment.Rating, comment.CommentText, comment.Cdate);
+
+                if (isSuccess)//the comment has been added
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the comment has not been added
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the comment has not been added
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+
+
+          
         }
 
 
@@ -457,18 +529,29 @@ namespace RazervationServer.Controllers
         [HttpPost]
         public bool AddReservation([FromBody] Reservation reservation)
         {
-            bool isSuccess = context.AddReservation(reservation);
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if (isSuccess)//the reservation has been added
+            if (loggedUser != null && loggedUser.Client != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.AddReservation(reservation);
+
+                if (isSuccess)//the reservation has been added
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the reservation has not been added
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the reservation has not been added
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+           
         }
 
         // a function that adds a service
@@ -477,18 +560,30 @@ namespace RazervationServer.Controllers
         [HttpPost]
         public bool AddService([FromBody] Bservice service)
         {
-            bool isSuccess = context.AddService(service);
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if (isSuccess)//the reservation has been added
+            if (loggedUser != null && loggedUser.Business != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.AddService(service);
+
+                if (isSuccess)//the reservation has been added
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the reservation has not been added
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the reservation has not been added
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+
+           
         }
 
 
@@ -500,18 +595,29 @@ namespace RazervationServer.Controllers
 
         public bool DeleteService([FromBody] Bservice service)
         {
-            bool isSuccess = context.DeleteService(service);
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if (isSuccess)//the favorite has been deleted
+            if (loggedUser != null && loggedUser.Business != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.DeleteService(service);
+
+                if (isSuccess)//the favorite has been deleted
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the favorite has not been deleted
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the favorite has not been deleted
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+
         }
 
         // a function that adds a special number of workers
@@ -520,18 +626,30 @@ namespace RazervationServer.Controllers
         [HttpPost]
         public bool AddSpecialNumberOfWorkers([FromBody] SpecialNumberOfWorker specialNumberOfWorker)
         {
-            bool isSuccess = context.AddSpecialNumberOfWorkers(specialNumberOfWorker);
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if (isSuccess)//the reservation has been added
+            if (loggedUser != null && loggedUser.Business != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.AddSpecialNumberOfWorkers(specialNumberOfWorker);
+
+                if (isSuccess)//the reservation has been added
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the reservation has not been added
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the reservation has not been added
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+
+         
         }
 
         // get a reservation status that matches the inserted status id
@@ -554,18 +672,29 @@ namespace RazervationServer.Controllers
         [HttpPost]
         public bool UpdateBusinessDays([FromBody] List<BusinessDay> businessDays)
         {
-            bool isSuccess = context.UpdateBusinessDays(businessDays);
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if (isSuccess)//the reservation has been added
+            if (loggedUser != null && loggedUser.Business != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.UpdateBusinessDays(businessDays);
+
+                if (isSuccess)//the reservation has been added
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the reservation has not been added
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the reservation has not been added
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+
         }
 
 
@@ -576,19 +705,30 @@ namespace RazervationServer.Controllers
 
         public bool UpdateBusinessDetails([FromBody] MainUserDTO mUser)
         {
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            bool isSuccess = context.UpdateBusinessDetails(mUser.Business, mUser.User);
-
-            if (isSuccess)//the details have been updated
+            if (loggedUser != null && loggedUser.Business != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.UpdateBusinessDetails(mUser.Business, mUser.User);
+
+                if (isSuccess)//the details have been updated
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the details have not been updated
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the details have not been updated
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+
+          
         }
 
 
@@ -618,18 +758,31 @@ namespace RazervationServer.Controllers
         [HttpPost]
         public bool ChangeReservationsStatus([FromBody] List<Reservation> reservations, [FromQuery] int statusId)
         {
-            bool isSuccess = context.ChangeReservationsStatus(reservations, statusId);
+            MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
 
-            if (isSuccess)//the favorite has been deleted
+            if (loggedUser != null)
             {
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isSuccess;
+                bool isSuccess = context.ChangeReservationsStatus(reservations, statusId);
+
+                if (isSuccess)//the favorite has been deleted
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+                    return isSuccess;
+                }
+                else//the favorite has not been deleted
+                {
+                    Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
+                    return isSuccess;
+                }
             }
-            else//the favorite has not been deleted
+            else
             {
                 Response.StatusCode = (int)System.Net.HttpStatusCode.Forbidden;
-                return isSuccess;
+                return false;
             }
+
+
+          
         }
 
         // a function that returns 1 if a future reservation exists (from now), 0 if there isnt a future reservation and -1 if something went wrong
@@ -638,19 +791,10 @@ namespace RazervationServer.Controllers
         [HttpGet]
         public int IsThereFutureReservationForTheService([FromQuery] int bServiceId)
         {
-            //MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
+            int isExist = context.IsThereFutureReservationForTheService(bServiceId);
 
-            //if(loggedUser != null && loggedUser.Business != null)
-            //{
-                int isExist = context.IsThereFutureReservationForTheService(bServiceId);
-
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isExist;
-            //}
-            //else
-            //{
-            //    return -1;
-            //}
+            Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            return isExist;
             
         }
 
@@ -661,19 +805,10 @@ namespace RazervationServer.Controllers
         [HttpGet]
         public int IsThereFutureReservation([FromQuery] int businessId)
         {
-            //MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
+            int isExist = context.IsThereFutureReservation(businessId);
 
-            //if (loggedUser != null && loggedUser.Business != null)
-            //{
-                int isExist = context.IsThereFutureReservation(businessId);
-
-                Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
-                return isExist;
-            //}
-            //else
-            //{
-            //    return -1;
-            //}
+            Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
+            return isExist;
 
         }
 
@@ -682,19 +817,10 @@ namespace RazervationServer.Controllers
         [HttpGet]
         public int DoesReservationExist([FromQuery] int businessId, [FromQuery] string date)
         {
-            //MainUserDTO loggedUser = HttpContext.Session.GetObject<MainUserDTO>("theUser");
-
-            //if (loggedUser != null && loggedUser.Business != null)
-            //{
             int isExist = context.DoesReservationExist(businessId, date);
 
             Response.StatusCode = (int)System.Net.HttpStatusCode.OK;
             return isExist;
-            //}
-            //else
-            //{
-            //    return -1;
-            //}
 
         }
 
